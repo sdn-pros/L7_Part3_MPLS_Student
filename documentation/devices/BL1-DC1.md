@@ -59,7 +59,7 @@ dns domain atd.lab
 
 | VRF Name | IPv4 ACL | IPv6 ACL |
 | -------- | -------- | -------- |
-| default | - | - |
+| MGMT | - | - |
 
 #### Management API HTTP Configuration
 
@@ -69,7 +69,7 @@ management api http-commands
    protocol https
    no shutdown
    !
-   vrf default
+   vrf MGMT
       no shutdown
 ```
 
@@ -247,12 +247,14 @@ ip virtual-router mac-address 02:1c:73:00:dc:00
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
+| MGMT | False |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
+no ip routing vrf MGMT
 ```
 
 ### IPv6 Routing
@@ -262,7 +264,7 @@ ip routing
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
-| default | false |
+| MGMT | false |
 
 ### Static Routes
 
@@ -270,13 +272,13 @@ ip routing
 
 | VRF | Destination Prefix | Next Hop IP             | Exit interface      | Administrative Distance       | Tag               | Route Name                    | Metric         |
 | --- | ------------------ | ----------------------- | ------------------- | ----------------------------- | ----------------- | ----------------------------- | -------------- |
-| default | 0.0.0.0/0 | 192.168.0.1 | - | 1 | - | - | - |
+| MGMT | 0.0.0.0/0 | 192.168.0.1 | - | 1 | - | - | - |
 
 #### Static Routes Device Configuration
 
 ```eos
 !
-ip route 0.0.0.0/0 192.168.0.1
+ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 ```
 
 ### Router ISIS
@@ -473,10 +475,13 @@ mpls ip
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
+| MGMT | disabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
+!
+vrf instance MGMT
 ```
 
 ## EOS CLI

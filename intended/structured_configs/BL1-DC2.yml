@@ -33,7 +33,7 @@ router_bgp:
     peer_group: MPLS-OVERLAY-PEERS
     description: RR
 static_routes:
-- vrf: default
+- vrf: MGMT
   destination_address_prefix: 0.0.0.0/0
   gateway: 192.168.0.1
 service_routing_protocols_model: multi-agent
@@ -49,11 +49,11 @@ spanning_tree:
   - id: '0'
     priority: 32768
 vrfs:
-- name: default
+- name: MGMT
   ip_routing: false
 management_api_http:
   enable_vrfs:
-  - name: default
+  - name: MGMT
   enable_https: true
 loopback_interfaces:
 - name: Loopback0

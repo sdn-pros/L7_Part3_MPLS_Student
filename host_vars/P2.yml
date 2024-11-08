@@ -2,6 +2,7 @@ custom_hostname: P2
 
 eos_cli: |-
 
+ 
  interface Ethernet2,3,4
     no switchport
     isis enable CORE
