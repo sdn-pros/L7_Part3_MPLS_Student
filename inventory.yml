@@ -1,63 +1,22 @@
 ---
 all:
-  hosts: 
-    cvaas: 
-      ansible_host: www.cv-prod-us-central1-c.arista.io
-      ansible_user: cvaas
-      ansible_password: "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJkaWQiOjcyMzEyODYwODY2NTAxODU2NDcsImRzbiI6InBhdGhmaW5kZXItMTctbmV3IiwiZHN0IjoiYWNjb3VudCIsImV4cCI6MTczMDU2NjYyMiwiaWF0IjoxNzI4MzE2NjI2LCJvZ2kiOjcyMzEyODYwODY2NTAxNzQxMTgsIm9nbiI6InBhdGhmaW5kZXItMTciLCJzaWQiOiI3MzJhYWVmM2YzMzdiZjgwYWYxYzlhNDI1YTIwMmYxMzM2YzY1MzJlMzlmODc3ZTg3M2MxM2EzODFkY2ZhZWUwLWVLaDRIUzdDbUZiUjN0amkyQXBLb252STJwN0I0UjZzWFhIa3AxWE4ifQ.24WcOz7dMl9jE5f3Eh6IbIzqXhaiujKLTGvQs_WlyyGEYT8hoCdmB6q8HYhRSRMZumt9oU71va6ily8yBdY2Dw"
-      ansible_connection: httpapi
-      ansible_httpapi_use_ssl: True
-      ansible_httpapi_validate_certs: False
-      ansible_network_os: eos
-      ansible_httpapi_port: 443
   children:
-    Internet:
-      hosts:
-        ISP-3:
-    REGION1:
-      hosts:
-        H14:
-        Edge14:
-        P10:
-        P11:
-        RR1:
-        RR2:
-        R1-PE1:
-        ISP-1:
-        Edge10:
-        Edge11:
-        Edge12:
-        Edge13:
-        Leaf11:
-        Leaf12:
-        H11:
-        H12:
-        H13:
-    REGION2:
-      hosts:
-        H24:
-        Edge24:
-        P20:
-        P21:
-        RR3:
-        RR4:
-        R2-PE2:
-        ISP-2:
-        Edge20:
-        Edge21:
-        Edge22:
-        Edge23:
-        Leaf21:
-        Leaf22:
-        H21:
-        H22:
-        H23:
-
-
+    CVP_cluster:
+      hosts: 
+        cvp1: 
+          ansible_httpapi_host: 192.168.0.5
+          ansible_host: 192.168.0.5
+          ansible_user: arista
+          ansible_password: aristaeqy7
+          ansible_connection: httpapi
+          ansible_httpapi_use_ssl: True
+          ansible_httpapi_validate_certs: False
+          ansible_network_os: eos
+          ansible_httpapi_port: 443
     MPLS_FABRIC:
       vars:
         ansible_user: arista
-        ansible_ssh_pass: arista4qw4 # If using SSH keys, this can be removed
+        ansible_ssh_pass: aristaeqy7 # If using SSH keys, this can be removed
 # Use this section if you want to perform testing via the eAPI
         # ansible_connection: httpapi
         # ansible_httpapi_use_ssl: True
@@ -77,37 +36,32 @@ all:
                 type: p
               hosts:
                 P1:
-                  ansible_host: 192.168.0.94
+                  ansible_host: 192.168.0.93
                 P2:
-                  ansible_host: 192.168.0.96
+                  ansible_host: 192.168.0.94
                 P3:
-                  ansible_host: 192.168.0.95
-                P4:
                   ansible_host: 192.168.0.97
-                P5:
-                  ansible_host: 192.168.0.91
-                P6:
-                  ansible_host: 192.168.0.92
+                P4:
+                  ansible_host: 192.168.0.98
+
             RR_ROUTERS:
               vars: 
                 type: rr
               hosts:
-                RR5:
-                  ansible_host: 192.168.0.73
-                RR6:
-                  ansible_host: 192.168.0.74
+                RR:
+                  ansible_host: 192.168.0.90
+   
             PE_ROUTERS:
               vars: 
                 type: pe
+
               hosts:
-                PE1:
-                  ansible_host: 192.168.0.81
-                PE2:
-                  ansible_host: 192.168.0.82
-                PE3:
-                  ansible_host: 192.168.0.83
-                PE4:
-                  ansible_host: 192.168.0.84              
+                BL1-DC1:
+                  ansible_host: 192.168.0.91
+
+                BL1-DC2:
+                  ansible_host: 192.168.0.95
+
     NETWORK_SERVICES:
       children:
         PE_ROUTERS:

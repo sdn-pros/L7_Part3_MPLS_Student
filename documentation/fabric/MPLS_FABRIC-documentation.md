@@ -18,18 +18,13 @@
 
 | POD | Type | Node | Management IP | Platform | Provisioned in CloudVision | Serial Number |
 | --- | ---- | ---- | ------------- | -------- | -------------------------- | ------------- |
-| MPLS_FABRIC | p | P1 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | p | P2 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | p | P3 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | p | P4 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | p | P5 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | p | P6 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | pe | PE1 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | pe | PE2 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | pe | PE3 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | pe | PE4 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | rr | RR5 | - | vEOS-lab | Provisioned | - |
-| MPLS_FABRIC | rr | RR6 | - | vEOS-lab | Provisioned | - |
+| MPLS_FABRIC | pe | BL1-DC1 | - | cEOS | Provisioned | - |
+| MPLS_FABRIC | pe | BL1-DC2 | - | cEOS | Provisioned | - |
+| MPLS_FABRIC | p | P1 | - | cEOS | Provisioned | - |
+| MPLS_FABRIC | p | P2 | - | cEOS | Provisioned | - |
+| MPLS_FABRIC | p | P3 | - | cEOS | Provisioned | - |
+| MPLS_FABRIC | p | P4 | - | cEOS | Provisioned | - |
+| MPLS_FABRIC | rr | RR | - | cEOS | Provisioned | - |
 
 > Provision status is based on Ansible inventory declaration and do not represent real status from CloudVision.
 
@@ -42,33 +37,15 @@
 
 | Type | Node | Node Interface | Peer Type | Peer Node | Peer Interface |
 | ---- | ---- | -------------- | --------- | ----------| -------------- |
-| p | P1 | Ethernet1 | p | P5 | Ethernet2 |
-| p | P1 | Ethernet2 | pe | PE1 | Ethernet2 |
-| p | P1 | Ethernet3 | pe | PE2 | Ethernet2 |
-| p | P1 | Ethernet4 | p | P6 | Ethernet4 |
-| p | P2 | Ethernet1 | p | P6 | Ethernet2 |
-| p | P2 | Ethernet2 | pe | PE1 | Ethernet3 |
-| p | P2 | Ethernet3 | pe | PE2 | Ethernet3 |
-| p | P2 | Ethernet4 | p | P5 | Ethernet4 |
-| p | P3 | Ethernet1 | p | P5 | Ethernet3 |
-| p | P3 | Ethernet2 | pe | PE3 | Ethernet2 |
-| p | P3 | Ethernet3 | pe | PE4 | Ethernet2 |
-| p | P3 | Ethernet4 | p | P6 | Ethernet5 |
-| p | P4 | Ethernet1 | p | P6 | Ethernet3 |
-| p | P4 | Ethernet2 | pe | PE3 | Ethernet3 |
-| p | P4 | Ethernet3 | pe | PE4 | Ethernet3 |
-| p | P4 | Ethernet4 | p | P5 | Ethernet5 |
-| p | P5 | Ethernet1 | p | P6 | Ethernet1 |
-| pe | PE1 | Ethernet1 | pe | PE2 | Ethernet1 |
-| pe | PE1 | Ethernet6 | rr | RR5 | Ethernet6 |
-| pe | PE1 | Ethernet8 | rr | RR6 | Ethernet10 |
-| pe | PE2 | Ethernet6 | rr | RR5 | Ethernet7 |
-| pe | PE2 | Ethernet8 | rr | RR6 | Ethernet13 |
-| pe | PE3 | Ethernet1 | pe | PE4 | Ethernet1 |
-| pe | PE3 | Ethernet6 | rr | RR6 | Ethernet6 |
-| pe | PE3 | Ethernet8 | rr | RR5 | Ethernet10 |
-| pe | PE4 | Ethernet6 | rr | RR6 | Ethernet7 |
-| pe | PE4 | Ethernet8 | rr | RR5 | Ethernet13 |
+| pe | BL1-DC1 | Ethernet1 | p | P1 | Ethernet1 |
+| pe | BL1-DC1 | Ethernet5 | rr | RR | Ethernet1 |
+| pe | BL1-DC2 | Ethernet1 | p | P3 | Ethernet1 |
+| pe | BL1-DC2 | Ethernet4 | p | P4 | Ethernet3 |
+| pe | BL1-DC2 | Ethernet5 | rr | RR | Ethernet5 |
+| p | P1 | Ethernet2 | p | P3 | Ethernet2 |
+| p | P1 | Ethernet4 | p | P2 | Ethernet4 |
+| p | P2 | Ethernet2 | p | P4 | Ethernet2 |
+| p | P3 | Ethernet4 | p | P4 | Ethernet4 |
 
 ## Fabric IP Allocation
 
@@ -81,73 +58,45 @@
 
 | Node | Node Interface | Node IP Address | Peer Node | Peer Interface | Peer IP Address |
 | ---- | -------------- | --------------- | --------- | -------------- | --------------- |
-| P1 | Ethernet1 | 192.168.102.18/31 | P5 | Ethernet2 | 192.168.102.19/31 |
-| P1 | Ethernet2 | 192.168.102.1/31 | PE1 | Ethernet2 | 192.168.102.0/31 |
-| P1 | Ethernet3 | 192.168.102.5/31 | PE2 | Ethernet2 | 192.168.102.4/31 |
-| P1 | Ethernet4 | 192.168.102.20/31 | P6 | Ethernet4 | 192.168.102.21/31 |
-| P2 | Ethernet1 | 192.168.102.26/31 | P6 | Ethernet2 | 192.168.102.27/31 |
-| P2 | Ethernet2 | 192.168.102.3/31 | PE1 | Ethernet3 | 192.168.102.2/31 |
-| P2 | Ethernet3 | 192.168.102.7/31 | PE2 | Ethernet3 | 192.168.102.6/31 |
-| P2 | Ethernet4 | 192.168.102.24/31 | P5 | Ethernet4 | 192.168.102.25/31 |
-| P3 | Ethernet1 | 192.168.102.31/31 | P5 | Ethernet3 | 192.168.102.30/31 |
-| P3 | Ethernet2 | 192.168.102.36/31 | PE3 | Ethernet2 | 192.168.102.37/31 |
-| P3 | Ethernet3 | 192.168.102.38/31 | PE4 | Ethernet2 | 192.168.102.39/31 |
-| P3 | Ethernet4 | 192.168.102.33/31 | P6 | Ethernet5 | 192.168.102.32/31 |
-| P4 | Ethernet1 | 192.168.102.35/31 | P6 | Ethernet3 | 192.168.102.34/31 |
-| P4 | Ethernet2 | 192.168.102.40/31 | PE3 | Ethernet3 | 192.168.102.41/31 |
-| P4 | Ethernet3 | 192.168.102.42/31 | PE4 | Ethernet3 | 192.168.102.43/31 |
-| P4 | Ethernet4 | 192.168.102.33/31 | P5 | Ethernet5 | 192.168.102.32/31 |
-| P5 | Ethernet1 | 192.168.102.28/31 | P6 | Ethernet1 | 192.168.102.29/31 |
-| PE1 | Ethernet1 | 192.168.102.8/31 | PE2 | Ethernet1 | 192.168.102.9/31 |
-| PE1 | Ethernet6 | 192.168.102.10/31 | RR5 | Ethernet6 | 192.168.102.11/31 |
-| PE1 | Ethernet8 | 192.168.102.12/31 | RR6 | Ethernet10 | 192.168.102.13/31 |
-| PE2 | Ethernet6 | 192.168.102.14/31 | RR5 | Ethernet7 | 192.168.102.15/31 |
-| PE2 | Ethernet8 | 192.168.102.16/31 | RR6 | Ethernet13 | 192.168.102.17/31 |
-| PE3 | Ethernet1 | 192.168.102.44/31 | PE4 | Ethernet1 | 192.168.102.45/31 |
-| PE3 | Ethernet6 | 192.168.102.48/31 | RR6 | Ethernet6 | 192.168.102.49/31 |
-| PE3 | Ethernet8 | 192.168.102.46/31 | RR5 | Ethernet10 | 192.168.102.47/31 |
-| PE4 | Ethernet6 | 192.168.102.52/31 | RR6 | Ethernet7 | 192.168.102.53/31 |
-| PE4 | Ethernet8 | 192.168.102.50/31 | RR5 | Ethernet13 | 192.168.102.51/31 |
+| BL1-DC1 | Ethernet1 | 192.168.101.80/31 | P1 | Ethernet1 | 192.168.101.81/31 |
+| BL1-DC1 | Ethernet5 | 192.168.101.84/31 | RR | Ethernet1 | 192.168.101.85/31 |
+| BL1-DC2 | Ethernet1 | 192.168.101.82/31 | P3 | Ethernet1 | 192.168.101.83/31 |
+| BL1-DC2 | Ethernet4 | 192.168.101.97/31 | P4 | Ethernet3 | 192.168.101.96/31 |
+| BL1-DC2 | Ethernet5 | 192.168.101.86/31 | RR | Ethernet5 | 192.168.101.87/31 |
+| P1 | Ethernet2 | 192.168.101.88/31 | P3 | Ethernet2 | 192.168.101.89/31 |
+| P1 | Ethernet4 | 192.168.101.90/31 | P2 | Ethernet4 | 192.168.101.91/31 |
+| P2 | Ethernet2 | 192.168.101.95/31 | P4 | Ethernet2 | 192.168.101.94/31 |
+| P3 | Ethernet4 | 192.168.101.92/31 | P4 | Ethernet4 | 192.168.101.93/31 |
 
 ### Loopback Interfaces (BGP EVPN Peering)
 
 | Loopback Pool | Available Addresses | Assigned addresses | Assigned Address % |
 | ------------- | ------------------- | ------------------ | ------------------ |
-| 192.168.101.0/24 | 256 | 12 | 4.69 % |
+| 192.168.101.0/24 | 256 | 25 | 9.77 % |
 
 ### Loopback0 Interfaces Node Allocation
 
 | POD | Node | Loopback0 |
 | --- | ---- | --------- |
+| MPLS_FABRIC | BL1-DC1 | 192.168.101.5/32 |
+| MPLS_FABRIC | BL1-DC2 | 192.168.101.6/32 |
 | MPLS_FABRIC | P1 | 192.168.101.1/32 |
 | MPLS_FABRIC | P2 | 192.168.101.2/32 |
 | MPLS_FABRIC | P3 | 192.168.101.3/32 |
 | MPLS_FABRIC | P4 | 192.168.101.4/32 |
-| MPLS_FABRIC | P5 | 192.168.101.5/32 |
-| MPLS_FABRIC | P6 | 192.168.101.6/32 |
-| MPLS_FABRIC | PE1 | 192.168.101.21/32 |
-| MPLS_FABRIC | PE2 | 192.168.101.22/32 |
-| MPLS_FABRIC | PE3 | 192.168.101.23/32 |
-| MPLS_FABRIC | PE4 | 192.168.101.24/32 |
-| MPLS_FABRIC | RR5 | 192.168.101.35/32 |
-| MPLS_FABRIC | RR6 | 192.168.101.36/32 |
+| MPLS_FABRIC | RR | 192.168.101.51/32 |
 
 ### ISIS CLNS interfaces
 
 | POD | Node | CLNS Address |
 | --- | ---- | ------------ |
+| MPLS_FABRIC | BL1-DC1 | 49.0001.0000.0001.0005.00 |
+| MPLS_FABRIC | BL1-DC2 | 49.0001.0000.0001.0006.00 |
 | MPLS_FABRIC | P1 | 49.0001.0000.0001.0001.00 |
 | MPLS_FABRIC | P2 | 49.0001.0000.0001.0002.00 |
 | MPLS_FABRIC | P3 | 49.0001.0000.0001.0003.00 |
 | MPLS_FABRIC | P4 | 49.0001.0000.0001.0004.00 |
-| MPLS_FABRIC | P5 | 49.0001.0000.0001.0005.00 |
-| MPLS_FABRIC | P6 | 49.0001.0000.0001.0006.00 |
-| MPLS_FABRIC | PE1 | 49.0001.0000.0001.0021.00 |
-| MPLS_FABRIC | PE2 | 49.0001.0000.0001.0022.00 |
-| MPLS_FABRIC | PE3 | 49.0001.0000.0001.0023.00 |
-| MPLS_FABRIC | PE4 | 49.0001.0000.0001.0024.00 |
-| MPLS_FABRIC | RR5 | 49.0001.0000.0001.0035.00 |
-| MPLS_FABRIC | RR6 | 49.0001.0000.0001.0036.00 |
+| MPLS_FABRIC | RR | 49.0001.0000.0001.0051.00 |
 
 ### VTEP Loopback VXLAN Tunnel Source Interfaces (VTEPs Only)
 

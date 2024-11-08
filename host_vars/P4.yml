@@ -21,6 +21,9 @@ custom_ethernet_interfaces:
   - name: Ethernet4
     eos_cli: |-
         traffic-engineering
+  - name: Ethernet5
+    eos_cli: |-
+        shutdown
 custom_router_traffic_engineering:
   #enabled: true
   segment_routing:

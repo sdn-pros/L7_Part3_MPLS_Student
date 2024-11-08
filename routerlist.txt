@@ -1,5 +1,6 @@
 p:
-    p2, p2, p3, p4, p5, p6
+    P1, P2, P3, P4
 pe: 
-    pe1, pe2, pe3, pe4
-rr5, rr6
+    BL1-DC1, BL1-DC2
+rr:
+    RR

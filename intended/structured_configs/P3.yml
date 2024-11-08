@@ -1,5 +1,4 @@
 hostname: P3
-is_deployed: true
 static_routes:
 - vrf: MGMT
   destination_address_prefix: 0.0.0.0/0
@@ -48,31 +47,14 @@ mpls:
   ip: true
 ethernet_interfaces:
 - name: Ethernet1
-  peer: P5
-  peer_interface: Ethernet3
-  peer_type: p
-  description: P2P_LINK_TO_P5_Ethernet3
+  peer: BL1-DC2
+  peer_interface: Ethernet1
+  peer_type: pe
+  description: P2P_LINK_TO_BL1-DC2_Ethernet1
   type: routed
   shutdown: false
   mtu: 1500
-  ip_address: 192.168.102.31/31
-  isis_enable: CORE
-  isis_metric: 50
-  isis_network_point_to_point: true
-  isis_hello_padding: true
-  isis_circuit_type: level-1
-  mpls:
-    ip: true
-  eos_cli: traffic-engineering
-- name: Ethernet4
-  peer: P6
-  peer_interface: Ethernet5
-  peer_type: p
-  description: P2P_LINK_TO_P6_Ethernet5
-  type: routed
-  shutdown: false
-  mtu: 1500
-  ip_address: 192.168.102.33/31
+  ip_address: 192.168.101.83/31
   isis_enable: CORE
   isis_metric: 50
   isis_network_point_to_point: true
@@ -82,14 +64,31 @@ ethernet_interfaces:
     ip: true
   eos_cli: traffic-engineering
 - name: Ethernet2
-  peer: PE3
+  peer: P1
   peer_interface: Ethernet2
-  peer_type: pe
-  description: P2P_LINK_TO_PE3_Ethernet2
+  peer_type: p
+  description: P2P_LINK_TO_P1_Ethernet2
   type: routed
   shutdown: false
   mtu: 1500
-  ip_address: 192.168.102.36/31
+  ip_address: 192.168.101.89/31
+  isis_enable: CORE
+  isis_metric: 50
+  isis_network_point_to_point: true
+  isis_hello_padding: true
+  isis_circuit_type: level-1
+  mpls:
+    ip: true
+  eos_cli: traffic-engineering
+- name: Ethernet4
+  peer: P4
+  peer_interface: Ethernet4
+  peer_type: p
+  description: P2P_LINK_TO_P4_Ethernet4
+  type: routed
+  shutdown: false
+  mtu: 1500
+  ip_address: 192.168.101.92/31
   isis_enable: CORE
   isis_metric: 50
   isis_network_point_to_point: true
@@ -99,24 +98,15 @@ ethernet_interfaces:
     ip: true
   eos_cli: traffic-engineering
 - name: Ethernet3
-  peer: PE4
-  peer_interface: Ethernet2
-  peer_type: pe
-  description: P2P_LINK_TO_PE4_Ethernet2
-  type: routed
-  shutdown: false
-  mtu: 1500
-  ip_address: 192.168.102.38/31
-  isis_enable: CORE
-  isis_metric: 50
-  isis_network_point_to_point: true
-  isis_hello_padding: true
-  isis_circuit_type: level-1
-  mpls:
-    ip: true
-  eos_cli: traffic-engineering
-metadata:
-  platform: vEOS-lab
+  eos_cli: 'traffic-engineering
+
+    shutdown'
+- name: Ethernet5
+  eos_cli: shutdown
+- name: Ethernet6
+  eos_cli: 'traffic-engineering
+
+    shutdown'
 router_traffic_engineering:
   segment_routing: null
   router_id:

@@ -6,14 +6,14 @@ overlay_routing_protocol: ibgp
 fabric_evpn_encapsulation: mpls
 custom_structured_configuration_prefix: "custom_"
 
-bgp_as: 65001
+bgp_as: 65300
 bgp_mesh_pes: false
 
 # RD/RT Format
 overlay_rd_type:
   admin_subfield: overlay_loopback
 overlay_rt_type:
-  admin_subfield: 65001
+  admin_subfield: 65300
 
 # Must use for cEOS/vEOS
 bgp_update_wait_install: false
@@ -29,16 +29,15 @@ isis_advertise_passive_only: false
 design:
   type: mpls
 
-
 # There's an issue with vEOS with larger MTUs
 p2p_uplinks_mtu: 1500
 
 
 p:
   defaults: 
-    platform: vEOS-lab
+    platform: cEOS
     loopback_ipv4_pool: 192.168.101.0/24
-    loopback_ipv6_pool: "2001::/64"
+
     node_sid_base: 300
     isis_system_id_prefix: '0000.0001'
   nodes:  
@@ -50,167 +49,101 @@ p:
       id: 3
     - name: P4
       id: 4
-    - name: P5
-      id: 5
-    - name: P6
-      id: 6
-pe: 
-  defaults: 
-    platform: vEOS-lab
+
+pe:
+  defaults:
+    platform: cEOS
     loopback_ipv4_pool: 192.168.101.0/24
-    loopback_ipv6_pool: "2001::/64"
+  
     virtual_router_mac_address: 02:1C:73:00:DC:00
     node_sid_base: 200
     overlay_address_families: [ vpn-ipv4 ]
-    mpls_route_reflectors: [ RR5, RR6 ]
+    mpls_route_reflectors: [ RR ]
     isis_system_id_prefix: '0000.0001'
     spanning_tree_mode: mstp
+  
   nodes:
-    - name: PE1
-      id: 21
-    - name: PE2
-      id: 22
-    - name: PE3
-      id: 23
-    - name: PE4
-      id: 24
-rr:
-  defaults:
-    platform: vEOS-lab
-    loopback_ipv4_pool: 192.168.101.0/24
-    isis_system_id_prefix: '0000.0001'
-    bgp_defaults:
-     - 'neighbor MPLS-OVERLAY-PEERS next-hop-unchanged'
-  nodes:
-    - name: RR5
-      id: 35
-    - name: RR6
-      id: 36
+    - name: BL1-DC1
+      id: 5
+
+    - name: BL1-DC2
+      id: 6
+  
+
 core_interfaces:
   p2p_links_ip_pools:
     - name: core_pool
-      ipv4_pool: 192.168.102.0/24
+      ipv4_pool: 192.168.101.0/24
+
   p2p_links_profiles:
     - name: core_profile
       mtu: 1500
       isis_metric: 50
       ip_pool: core_pool
       isis_circuit_type: level-1
+
   p2p_links:
-    - nodes: [ PE1, P1 ]
-      interfaces: [ Ethernet2, Ethernet2 ]
-      profile: core_profile
-      id: 1
-    - nodes: [ PE1, P2 ]
-      interfaces: [ Ethernet3, Ethernet2 ]
-      profile: core_profile
-      id: 2
-    - nodes: [ PE2, P1 ]
-      interfaces: [ Ethernet2, Ethernet3 ]
-      profile: core_profile
-      id: 3
-    - nodes: [ PE2, P2 ]
-      interfaces: [ Ethernet3, Ethernet3 ]
-      profile: core_profile
-      id: 4
-    - nodes: [ PE1, PE2 ]
+    - nodes: [ BL1-DC1, P1 ]
       interfaces: [ Ethernet1, Ethernet1 ]
       profile: core_profile
-      id: 5
-    - nodes: [ PE1, RR5 ]
-      interfaces: [ Ethernet6, Ethernet6 ]
-      profile: core_profile
-      id: 6
-    - nodes: [ PE1, RR6 ]
-      interfaces: [ Ethernet8, Ethernet10 ]
-      profile: core_profile
-      id: 7
-    - nodes: [ PE2, RR5 ]
-      interfaces: [ Ethernet6, Ethernet7 ]
-      profile: core_profile
-      id: 8
-    - nodes: [ PE2, RR6 ]
-      interfaces: [ Ethernet8, Ethernet13 ]
-      profile: core_profile
-      id: 9
-    - nodes: [ P1, P5 ]
-      interfaces: [ Ethernet1, Ethernet2 ]
-      profile: core_profile
-      id: 10
-    - nodes: [ P1, P6 ]
-      interfaces: [ Ethernet4, Ethernet4 ]
-      profile: core_profile
-      id: 11
-    - nodes: [ P2, P5 ]
-      interfaces: [ Ethernet4, Ethernet4 ]
-      profile: core_profile
-      id: 13
-    - nodes: [ P2, P6 ]
-      interfaces: [ Ethernet1, Ethernet2 ]
-      profile: core_profile
-      id: 14
-    - nodes: [ P5, P6 ]
+      id: 41
+
+    - nodes: [ BL1-DC2, P3 ]
       interfaces: [ Ethernet1, Ethernet1 ]
       profile: core_profile
-      id: 15
-    - nodes: [ P5, P3 ]
-      interfaces: [ Ethernet3, Ethernet1 ]
+      id: 42
+
+    - nodes: [ BL1-DC1, RR ]
+      interfaces: [ Ethernet5, Ethernet1 ]
       profile: core_profile
-      id: 16
-    - nodes: [ P5, P4 ]
-      interfaces: [ Ethernet5, Ethernet4 ]
+      id: 43
+
+    - nodes: [ BL1-DC2, RR ]
+      interfaces: [ Ethernet5, Ethernet5 ]
       profile: core_profile
-      id: 17      
-    - nodes: [ P6, P3 ]
-      interfaces: [ Ethernet5, Ethernet4 ]
-      profile: core_profile
-      id: 17      
-    - nodes: [ P6, P4 ]
-      interfaces: [ Ethernet3, Ethernet1 ]
-      profile: core_profile
-      id: 18
-    - nodes: [ P3, PE3 ]
-      interfaces: [ Ethernet2, Ethernet2 ]
-      profile: core_profile
-      id: 19
-    - nodes: [ P3, PE4 ]
-      interfaces: [ Ethernet3, Ethernet2 ]
-      profile: core_profile
-      id: 20
-    - nodes: [ P4, PE3 ]
-      interfaces: [ Ethernet2, Ethernet3 ]
-      profile: core_profile
-      id: 21
-    - nodes: [ P4, PE4 ]
-      interfaces: [ Ethernet3, Ethernet3, ]
-      profile: core_profile
-      id: 22
-    - nodes: [ PE3, PE4 ]
-      interfaces: [ Ethernet1, Ethernet1 ]
-      profile: core_profile
-      id: 23
-    - nodes: [ PE3, RR5 ]
-      interfaces: [ Ethernet8, Ethernet10 ]
-      profile: core_profile
-      id: 24
-    - nodes: [ PE3, RR6 ]
-      interfaces: [ Ethernet6, Ethernet6 ]
-      profile: core_profile
-      id: 25
-    - nodes: [ PE4, RR5 ]
-      interfaces: [ Ethernet8, Ethernet13 ]
-      profile: core_profile
-      id: 26
-    - nodes: [ PE4, RR6 ]
-      interfaces: [ Ethernet6, Ethernet7 ]
-      profile: core_profile
-      id: 27
+      id: 44
     
+    - nodes: [ P1, P3 ]
+      interfaces: [ Ethernet2, Ethernet2 ]
+      profile: core_profile
+      id: 45
+
+    - nodes: [ P1, P2 ]
+      interfaces: [ Ethernet4, Ethernet4 ]
+      profile: core_profile
+      id: 46
+
+    - nodes: [ P3, P4 ]
+      interfaces: [ Ethernet4, Ethernet4 ]
+      profile: core_profile
+      id: 47
+
+    - nodes: [ P4, P2 ]
+      interfaces: [ Ethernet2, Ethernet2 ]
+      profile: core_profile
+      id: 48
+
+    - nodes: [ P4, BL1-DC2 ]
+      interfaces: [ Ethernet3, Ethernet4 ]
+      profile: core_profile
+      id: 49
+
+ 
+rr:
+  defaults:
+    platform: cEOS
+    loopback_ipv4_pool: 192.168.101.0/24
+    isis_system_id_prefix: '0000.0001'
+    bgp_defaults:
+     - 'neighbor MPLS-OVERLAY-PEERS next-hop-unchanged'
+
+  nodes:
+    - name: RR
+      id: 51
+
+ 
 dns_domain: atd.lab
 mgmt_interface: Management1
 mgmt_interface_vrf: MGMT
 mgmt_gateway: 192.168.0.1
 mgmt_vrf_routing: true
-
-
-
