@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Management](#management)
+  - [DNS Domain](#dns-domain)
   - [Management API HTTP](#management-api-http)
 - [Spanning Tree](#spanning-tree)
   - [Spanning Tree Summary](#spanning-tree-summary)
@@ -17,6 +18,7 @@
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
+  - [Static Routes](#static-routes)
   - [Router ISIS](#router-isis)
   - [Router BGP](#router-bgp)
 - [BFD](#bfd)
@@ -31,6 +33,17 @@
 
 ## Management
 
+### DNS Domain
+
+#### DNS domain: atd.lab
+
+#### DNS Domain Device Configuration
+
+```eos
+dns domain atd.lab
+!
+```
+
 ### Management API HTTP
 
 #### Management API HTTP Summary
@@ -43,7 +56,7 @@
 
 | VRF Name | IPv4 ACL | IPv6 ACL |
 | -------- | -------- | -------- |
-| MGMT | - | - |
+| default | - | - |
 
 #### Management API HTTP Configuration
 
@@ -53,7 +66,7 @@ management api http-commands
    protocol https
    no shutdown
    !
-   vrf MGMT
+   vrf default
       no shutdown
 ```
 
@@ -196,14 +209,12 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
-| MGMT | False |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
-no ip routing vrf MGMT
 ```
 
 ### IPv6 Routing
@@ -213,7 +224,22 @@ no ip routing vrf MGMT
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
-| MGMT | false |
+| default | false |
+
+### Static Routes
+
+#### Static Routes Summary
+
+| VRF | Destination Prefix | Next Hop IP             | Exit interface      | Administrative Distance       | Tag               | Route Name                    | Metric         |
+| --- | ------------------ | ----------------------- | ------------------- | ----------------------------- | ----------------- | ----------------------------- | -------------- |
+| default | 0.0.0.0/0 | 192.168.0.1 | - | 1 | - | - | - |
+
+#### Static Routes Device Configuration
+
+```eos
+!
+ip route 0.0.0.0/0 192.168.0.1
+```
 
 ### Router ISIS
 
@@ -425,13 +451,10 @@ mpls ip
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
-| MGMT | disabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
-!
-vrf instance MGMT
 ```
 
 ## EOS CLI

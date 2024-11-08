@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [Management](#management)
+  - [DNS Domain](#dns-domain)
   - [Management API HTTP](#management-api-http)
 - [Spanning Tree](#spanning-tree)
   - [Spanning Tree Summary](#spanning-tree-summary)
@@ -18,6 +19,7 @@
   - [Virtual Router MAC Address](#virtual-router-mac-address)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
+  - [Static Routes](#static-routes)
   - [Router ISIS](#router-isis)
   - [Router BGP](#router-bgp)
 - [BFD](#bfd)
@@ -34,6 +36,17 @@
 
 ## Management
 
+### DNS Domain
+
+#### DNS domain: atd.lab
+
+#### DNS Domain Device Configuration
+
+```eos
+dns domain atd.lab
+!
+```
+
 ### Management API HTTP
 
 #### Management API HTTP Summary
@@ -46,7 +59,7 @@
 
 | VRF Name | IPv4 ACL | IPv6 ACL |
 | -------- | -------- | -------- |
-| MGMT | - | - |
+| default | - | - |
 
 #### Management API HTTP Configuration
 
@@ -56,7 +69,7 @@ management api http-commands
    protocol https
    no shutdown
    !
-   vrf MGMT
+   vrf default
       no shutdown
 ```
 
@@ -113,6 +126,7 @@ vlan internal order ascending range 1006 1199
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
 | Ethernet1 | P2P_LINK_TO_P1_Ethernet1 | routed | - | 10.0.0.80/31 | default | 1500 | False | - | - |
+| Ethernet4 | P2P_LINK_TO_P2_Ethernet3 | routed | - | 10.0.0.98/31 | default | 1500 | False | - | - |
 | Ethernet5 | P2P_LINK_TO_RR_Ethernet1 | routed | - | 10.0.0.84/31 | default | 1500 | False | - | - |
 
 ##### ISIS
@@ -120,6 +134,7 @@ vlan internal order ascending range 1006 1199
 | Interface | Channel Group | ISIS Instance | ISIS Metric | Mode | ISIS Circuit Type | Hello Padding | Authentication Mode |
 | --------- | ------------- | ------------- | ----------- | ---- | ----------------- | ------------- | ------------------- |
 | Ethernet1 | - | CORE | 50 | point-to-point | level-2 | False | - |
+| Ethernet4 | - | CORE | 50 | point-to-point | level-2 | False | - |
 | Ethernet5 | - | CORE | 50 | point-to-point | level-2 | False | - |
 
 #### Ethernet Interfaces Device Configuration
@@ -132,6 +147,19 @@ interface Ethernet1
    mtu 1500
    no switchport
    ip address 10.0.0.80/31
+   mpls ip
+   isis enable CORE
+   isis circuit-type level-2
+   isis metric 50
+   no isis hello padding
+   isis network point-to-point
+!
+interface Ethernet4
+   description P2P_LINK_TO_P2_Ethernet3
+   no shutdown
+   mtu 1500
+   no switchport
+   ip address 10.0.0.98/31
    mpls ip
    isis enable CORE
    isis circuit-type level-2
@@ -219,14 +247,12 @@ ip virtual-router mac-address 02:1c:73:00:dc:00
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
-| MGMT | False |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
-no ip routing vrf MGMT
 ```
 
 ### IPv6 Routing
@@ -236,7 +262,22 @@ no ip routing vrf MGMT
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | False |
-| MGMT | false |
+| default | false |
+
+### Static Routes
+
+#### Static Routes Summary
+
+| VRF | Destination Prefix | Next Hop IP             | Exit interface      | Administrative Distance       | Tag               | Route Name                    | Metric         |
+| --- | ------------------ | ----------------------- | ------------------- | ----------------------------- | ----------------- | ----------------------------- | -------------- |
+| default | 0.0.0.0/0 | 192.168.0.1 | - | 1 | - | - | - |
+
+#### Static Routes Device Configuration
+
+```eos
+!
+ip route 0.0.0.0/0 192.168.0.1
+```
 
 ### Router ISIS
 
@@ -256,6 +297,7 @@ no ip routing vrf MGMT
 | Interface | ISIS Instance | ISIS Metric | Interface Mode |
 | --------- | ------------- | ----------- | -------------- |
 | Ethernet1 | CORE | 50 | point-to-point |
+| Ethernet4 | CORE | 50 | point-to-point |
 | Ethernet5 | CORE | 50 | point-to-point |
 | Loopback0 | CORE | - | passive |
 
@@ -407,6 +449,7 @@ mpls ip
 | Interface | MPLS IP Enabled | LDP Enabled | IGP Sync |
 | --------- | --------------- | ----------- | -------- |
 | Ethernet1 | True | - | - |
+| Ethernet4 | True | - | - |
 | Ethernet5 | True | - | - |
 
 ## Multicast
@@ -430,13 +473,10 @@ mpls ip
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
-| MGMT | disabled |
 
 ### VRF Instances Device Configuration
 
 ```eos
-!
-vrf instance MGMT
 ```
 
 ## EOS CLI
