@@ -1,36 +1,24 @@
 custom_hostname: P3
-custom_router_isis:
-  instance: CORE
-  segment_routing_mpls:
-    enabled: true
-    router_id: 192.168.255.97
-  eos_cli: |-
+eos_cli: |-
+
+ interface Ethernet 1,2,3,4
+    no switchport
+    isis enable CORE
+    traffic-engineering
+    isis network point-to-point
+    isis circuit-type level-2
+    no isis hello padding
+
+  router isis CORE
+    segment-routing mpls
+     router-id 192.168.255.97
+      no shutdown
+   
+  
     traffic-engineering
       no shutdown
       is-type level-2
-custom_ethernet_interfaces:
-  - name: Ethernet1
-    eos_cli: |-
-      traffic-engineering
-  - name: Ethernet2
-    eos_cli: |-
-      traffic-engineering
-  - name: Ethernet3
-    eos_cli: |-
-      traffic-engineering
-      shutdown
-  - name: Ethernet4
-    eos_cli: |-
-        traffic-engineering
-  - name: Ethernet5
-    eos_cli: |-
-        shutdown
-  - name: Ethernet6
-    eos_cli: |-
-      traffic-engineering
-      shutdown
-custom_router_traffic_engineering:
-  #enabled: true
-  segment_routing:
-  router_id:
-    ipv4: 192.168.255.97
+  
+  router traffic-engineering
+   segment-routing
+   router-id ipv4 192.168.255.97

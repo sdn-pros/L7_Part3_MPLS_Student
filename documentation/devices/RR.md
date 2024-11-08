@@ -27,6 +27,7 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [EOS CLI](#eos-cli)
 
 ## Management
 
@@ -431,4 +432,32 @@ mpls ip
 ```eos
 !
 vrf instance MGMT
+```
+
+## EOS CLI
+
+```eos
+!
+
+interface Ethernet1,5
+  no switchport
+  isis enable CORE
+  traffic-engineering
+  isis network point-to-point
+  isis circuit-type level-2
+  no isis hello padding
+
+router isis CORE
+  segment-routing mpls
+   router-id 192.168.255.90
+    no shutdown
+
+
+  traffic-engineering
+    no shutdown
+    is-type level-2
+
+router traffic-engineering
+ segment-routing
+ router-id ipv4 192.168.255.90
 ```
