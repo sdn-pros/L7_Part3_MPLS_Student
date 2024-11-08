@@ -58,45 +58,45 @@
 
 | Node | Node Interface | Node IP Address | Peer Node | Peer Interface | Peer IP Address |
 | ---- | -------------- | --------------- | --------- | -------------- | --------------- |
-| BL1-DC1 | Ethernet1 | 192.168.101.80/31 | P1 | Ethernet1 | 192.168.101.81/31 |
-| BL1-DC1 | Ethernet5 | 192.168.101.84/31 | RR | Ethernet1 | 192.168.101.85/31 |
-| BL1-DC2 | Ethernet1 | 192.168.101.82/31 | P3 | Ethernet1 | 192.168.101.83/31 |
-| BL1-DC2 | Ethernet4 | 192.168.101.97/31 | P4 | Ethernet3 | 192.168.101.96/31 |
-| BL1-DC2 | Ethernet5 | 192.168.101.86/31 | RR | Ethernet5 | 192.168.101.87/31 |
-| P1 | Ethernet2 | 192.168.101.88/31 | P3 | Ethernet2 | 192.168.101.89/31 |
-| P1 | Ethernet4 | 192.168.101.90/31 | P2 | Ethernet4 | 192.168.101.91/31 |
-| P2 | Ethernet2 | 192.168.101.95/31 | P4 | Ethernet2 | 192.168.101.94/31 |
-| P3 | Ethernet4 | 192.168.101.92/31 | P4 | Ethernet4 | 192.168.101.93/31 |
+| BL1-DC1 | Ethernet1 | 10.0.0.80/31 | P1 | Ethernet1 | 10.0.0.81/31 |
+| BL1-DC1 | Ethernet5 | 10.0.0.84/31 | RR | Ethernet1 | 10.0.0.85/31 |
+| BL1-DC2 | Ethernet1 | 10.0.0.82/31 | P3 | Ethernet1 | 10.0.0.83/31 |
+| BL1-DC2 | Ethernet4 | 10.0.0.97/31 | P4 | Ethernet3 | 10.0.0.96/31 |
+| BL1-DC2 | Ethernet5 | 10.0.0.86/31 | RR | Ethernet5 | 10.0.0.87/31 |
+| P1 | Ethernet2 | 10.0.0.88/31 | P3 | Ethernet2 | 10.0.0.89/31 |
+| P1 | Ethernet4 | 10.0.0.90/31 | P2 | Ethernet4 | 10.0.0.91/31 |
+| P2 | Ethernet2 | 10.0.0.95/31 | P4 | Ethernet2 | 10.0.0.94/31 |
+| P3 | Ethernet4 | 10.0.0.92/31 | P4 | Ethernet4 | 10.0.0.93/31 |
 
 ### Loopback Interfaces (BGP EVPN Peering)
 
 | Loopback Pool | Available Addresses | Assigned addresses | Assigned Address % |
 | ------------- | ------------------- | ------------------ | ------------------ |
-| 192.168.101.0/24 | 256 | 25 | 9.77 % |
+| 192.168.255.0/24 | 256 | 7 | 2.74 % |
 
 ### Loopback0 Interfaces Node Allocation
 
 | POD | Node | Loopback0 |
 | --- | ---- | --------- |
-| MPLS_FABRIC | BL1-DC1 | 192.168.101.5/32 |
-| MPLS_FABRIC | BL1-DC2 | 192.168.101.6/32 |
-| MPLS_FABRIC | P1 | 192.168.101.1/32 |
-| MPLS_FABRIC | P2 | 192.168.101.2/32 |
-| MPLS_FABRIC | P3 | 192.168.101.3/32 |
-| MPLS_FABRIC | P4 | 192.168.101.4/32 |
-| MPLS_FABRIC | RR | 192.168.101.51/32 |
+| MPLS_FABRIC | BL1-DC1 | 192.168.255.91/32 |
+| MPLS_FABRIC | BL1-DC2 | 192.168.255.95/32 |
+| MPLS_FABRIC | P1 | 192.168.255.93/32 |
+| MPLS_FABRIC | P2 | 192.168.255.94/32 |
+| MPLS_FABRIC | P3 | 192.168.255.97/32 |
+| MPLS_FABRIC | P4 | 192.168.255.98/32 |
+| MPLS_FABRIC | RR | 192.168.255.90/32 |
 
 ### ISIS CLNS interfaces
 
 | POD | Node | CLNS Address |
 | --- | ---- | ------------ |
-| MPLS_FABRIC | BL1-DC1 | 49.0001.0000.0001.0005.00 |
-| MPLS_FABRIC | BL1-DC2 | 49.0001.0000.0001.0006.00 |
-| MPLS_FABRIC | P1 | 49.0001.0000.0001.0001.00 |
-| MPLS_FABRIC | P2 | 49.0001.0000.0001.0002.00 |
-| MPLS_FABRIC | P3 | 49.0001.0000.0001.0003.00 |
-| MPLS_FABRIC | P4 | 49.0001.0000.0001.0004.00 |
-| MPLS_FABRIC | RR | 49.0001.0000.0001.0051.00 |
+| MPLS_FABRIC | BL1-DC1 | 49.0001.0000.0001.0091.00 |
+| MPLS_FABRIC | BL1-DC2 | 49.0001.0000.0001.0095.00 |
+| MPLS_FABRIC | P1 | 49.0001.0000.0001.0093.00 |
+| MPLS_FABRIC | P2 | 49.0001.0000.0001.0094.00 |
+| MPLS_FABRIC | P3 | 49.0001.0000.0001.0097.00 |
+| MPLS_FABRIC | P4 | 49.0001.0000.0001.0098.00 |
+| MPLS_FABRIC | RR | 49.0001.0000.0001.0090.00 |
 
 ### VTEP Loopback VXLAN Tunnel Source Interfaces (VTEPs Only)
 

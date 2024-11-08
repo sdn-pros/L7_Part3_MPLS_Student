@@ -3,7 +3,6 @@
 ## Table of Contents
 
 - [Management](#management)
-  - [DNS Domain](#dns-domain)
   - [Management API HTTP](#management-api-http)
 - [Spanning Tree](#spanning-tree)
   - [Spanning Tree Summary](#spanning-tree-summary)
@@ -18,7 +17,6 @@
   - [Service Routing Protocols Model](#service-routing-protocols-model)
   - [IP Routing](#ip-routing)
   - [IPv6 Routing](#ipv6-routing)
-  - [Static Routes](#static-routes)
   - [Router ISIS](#router-isis)
   - [Router BGP](#router-bgp)
 - [BFD](#bfd)
@@ -31,17 +29,6 @@
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
 
 ## Management
-
-### DNS Domain
-
-#### DNS domain: atd.lab
-
-#### DNS Domain Device Configuration
-
-```eos
-dns domain atd.lab
-!
-```
 
 ### Management API HTTP
 
@@ -114,8 +101,8 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Type | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | -----| ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | P2P_LINK_TO_BL1-DC1_Ethernet5 | routed | - | 192.168.101.85/31 | default | 1500 | False | - | - |
-| Ethernet5 | P2P_LINK_TO_BL1-DC2_Ethernet5 | routed | - | 192.168.101.87/31 | default | 1500 | False | - | - |
+| Ethernet1 | P2P_LINK_TO_BL1-DC1_Ethernet5 | routed | - | 10.0.0.85/31 | default | 1500 | False | - | - |
+| Ethernet5 | P2P_LINK_TO_BL1-DC2_Ethernet5 | routed | - | 10.0.0.87/31 | default | 1500 | False | - | - |
 
 ##### ISIS
 
@@ -133,7 +120,7 @@ interface Ethernet1
    no shutdown
    mtu 1500
    no switchport
-   ip address 192.168.101.85/31
+   ip address 10.0.0.85/31
    mpls ip
    isis enable CORE
    isis circuit-type level-1
@@ -146,7 +133,7 @@ interface Ethernet5
    no shutdown
    mtu 1500
    no switchport
-   ip address 192.168.101.87/31
+   ip address 10.0.0.87/31
    mpls ip
    isis enable CORE
    isis circuit-type level-1
@@ -163,7 +150,7 @@ interface Ethernet5
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | MPLS_Overlay_peering | default | 192.168.101.51/32 |
+| Loopback0 | MPLS_Overlay_peering | default | 192.168.255.90/32 |
 
 ##### IPv6
 
@@ -184,10 +171,10 @@ interface Ethernet5
 interface Loopback0
    description MPLS_Overlay_peering
    no shutdown
-   ip address 192.168.101.51/32
+   ip address 192.168.255.90/32
    isis enable CORE
    isis passive
-   node-segment ipv4 index 51
+   node-segment ipv4 index 90
 ```
 
 ## Routing
@@ -208,14 +195,14 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
-| MGMT | True |
+| MGMT | False |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
-ip routing vrf MGMT
+no ip routing vrf MGMT
 ```
 
 ### IPv6 Routing
@@ -227,21 +214,6 @@ ip routing vrf MGMT
 | default | False |
 | MGMT | false |
 
-### Static Routes
-
-#### Static Routes Summary
-
-| VRF | Destination Prefix | Next Hop IP             | Exit interface      | Administrative Distance       | Tag               | Route Name                    | Metric         |
-| --- | ------------------ | ----------------------- | ------------------- | ----------------------------- | ----------------- | ----------------------------- | -------------- |
-| MGMT | 0.0.0.0/0 | 192.168.0.1 | - | 1 | - | - | - |
-
-#### Static Routes Device Configuration
-
-```eos
-!
-ip route vrf MGMT 0.0.0.0/0 192.168.0.1
-```
-
 ### Router ISIS
 
 #### Router ISIS Summary
@@ -249,9 +221,9 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 | Settings | Value |
 | -------- | ----- |
 | Instance | CORE |
-| Net-ID | 49.0001.0000.0001.0051.00 |
-| Type | level-1 |
-| Router-ID | 192.168.101.51 |
+| Net-ID | 49.0001.0000.0001.0090.00 |
+| Type | level-2 |
+| Router-ID | 192.168.255.90 |
 | Log Adjacency Changes | True |
 | SR MPLS Enabled | True |
 
@@ -267,7 +239,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 
 | Loopback | IPv4 Index | IPv6 Index |
 | -------- | ---------- | ---------- |
-| Loopback0 | 51 | - |
+| Loopback0 | 90 | - |
 
 #### ISIS IPv4 Address Family Summary
 
@@ -281,9 +253,9 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 ```eos
 !
 router isis CORE
-   net 49.0001.0000.0001.0051.00
-   is-type level-1
-   router-id ipv4 192.168.101.51
+   net 49.0001.0000.0001.0090.00
+   is-type level-2
+   router-id ipv4 192.168.255.90
    log-adjacency-changes
    !
    address-family ipv4 unicast
@@ -299,11 +271,11 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65300|  192.168.101.51 |
+| 65300|  192.168.255.90 |
 
 | BGP AS | Cluster ID |
 | ------ | --------- |
-| 65300|  192.168.101.51 |
+| 65300|  192.168.255.90 |
 
 | BGP Tuning |
 | ---------- |
@@ -340,8 +312,8 @@ router isis CORE
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 192.168.101.5 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 192.168.101.6 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 192.168.255.91 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 192.168.255.95 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
 
 #### Router BGP EVPN Address Family
 
@@ -365,10 +337,10 @@ router isis CORE
 ```eos
 !
 router bgp 65300
-   router-id 192.168.101.51
+   router-id 192.168.255.90
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
-   bgp cluster-id 192.168.101.51
+   bgp cluster-id 192.168.255.90
    neighbor MPLS-OVERLAY-PEERS next-hop-unchanged
    neighbor MPLS-OVERLAY-PEERS peer group
    neighbor MPLS-OVERLAY-PEERS remote-as 65300
@@ -383,10 +355,10 @@ router bgp 65300
    neighbor RR-OVERLAY-PEERS bfd
    neighbor RR-OVERLAY-PEERS send-community
    neighbor RR-OVERLAY-PEERS maximum-routes 0
-   neighbor 192.168.101.5 peer group MPLS-OVERLAY-PEERS
-   neighbor 192.168.101.5 description BL1-DC1
-   neighbor 192.168.101.6 peer group MPLS-OVERLAY-PEERS
-   neighbor 192.168.101.6 description BL1-DC2
+   neighbor 192.168.255.91 peer group MPLS-OVERLAY-PEERS
+   neighbor 192.168.255.91 description BL1-DC1
+   neighbor 192.168.255.95 peer group MPLS-OVERLAY-PEERS
+   neighbor 192.168.255.95 description BL1-DC2
    !
    address-family evpn
       neighbor RR-OVERLAY-PEERS activate
@@ -452,7 +424,7 @@ mpls ip
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
-| MGMT | enabled |
+| MGMT | disabled |
 
 ### VRF Instances Device Configuration
 
