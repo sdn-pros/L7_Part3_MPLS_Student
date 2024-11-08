@@ -38,7 +38,7 @@ p:
     platform: cEOS
     loopback_ipv4_pool: 192.168.101.0/24
 
-    node_sid_base: 300
+    node_sid_base: 90
     isis_system_id_prefix: '0000.0001'
   nodes:  
     - name: P1
@@ -139,7 +139,7 @@ rr:
 
   nodes:
     - name: RR
-      id: 51
+      id: 7
 
  
 dns_domain: atd.lab
