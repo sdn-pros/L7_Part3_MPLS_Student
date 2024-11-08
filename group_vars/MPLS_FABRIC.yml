@@ -29,7 +29,9 @@ isis_default_is_type: level-2
 isis_default_circuit_type: level-2
 isis_default_metric: 5
 isis_advertise_passive_only: false
-isis_instance: ISISDomain1
+isis_instance: CORE
+isis_hello_padding: false
+
 
 
 design:
