@@ -88,7 +88,8 @@ core_interfaces:
       mtu: 1500
       isis_metric: 50
       ip_pool: core_pool
-      isis_circuit_type: level-1
+      isis_circuit_type: level-2
+      isis_hello_padding: false
 
   p2p_links:
     - nodes: [ BL1-DC1, P1 ]
