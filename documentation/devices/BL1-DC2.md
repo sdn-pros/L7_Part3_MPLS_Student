@@ -1,4 +1,4 @@
-# BL1-DC2
+# RR
 
 ## Table of Contents
 
@@ -30,6 +30,7 @@
 - [VRF Instances](#vrf-instances)
   - [VRF Instances Summary](#vrf-instances-summary)
   - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+- [EOS CLI](#eos-cli)
 
 ## Management
 
@@ -119,9 +120,9 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Channel Group | ISIS Instance | ISIS Metric | Mode | ISIS Circuit Type | Hello Padding | Authentication Mode |
 | --------- | ------------- | ------------- | ----------- | ---- | ----------------- | ------------- | ------------------- |
-| Ethernet1 | - | CORE | 50 | point-to-point | level-1 | True | - |
-| Ethernet4 | - | CORE | 50 | point-to-point | level-1 | True | - |
-| Ethernet5 | - | CORE | 50 | point-to-point | level-1 | True | - |
+| Ethernet1 | - | CORE | 50 | point-to-point | level-2 | False | - |
+| Ethernet4 | - | CORE | 50 | point-to-point | level-2 | False | - |
+| Ethernet5 | - | CORE | 50 | point-to-point | level-2 | False | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -135,9 +136,9 @@ interface Ethernet1
    ip address 10.0.0.82/31
    mpls ip
    isis enable CORE
-   isis circuit-type level-1
+   isis circuit-type level-2
    isis metric 50
-   isis hello padding
+   no isis hello padding
    isis network point-to-point
 !
 interface Ethernet4
@@ -148,9 +149,9 @@ interface Ethernet4
    ip address 10.0.0.97/31
    mpls ip
    isis enable CORE
-   isis circuit-type level-1
+   isis circuit-type level-2
    isis metric 50
-   isis hello padding
+   no isis hello padding
    isis network point-to-point
 !
 interface Ethernet5
@@ -161,9 +162,9 @@ interface Ethernet5
    ip address 10.0.0.86/31
    mpls ip
    isis enable CORE
-   isis circuit-type level-1
+   isis circuit-type level-2
    isis metric 50
-   isis hello padding
+   no isis hello padding
    isis network point-to-point
 ```
 
@@ -453,4 +454,32 @@ mpls ip
 ```eos
 !
 vrf instance MGMT
+```
+
+## EOS CLI
+
+```eos
+!
+
+interface Ethernet1,5
+  no switchport
+  isis enable CORE
+  traffic-engineering
+  isis network point-to-point
+  isis circuit-type level-2
+  no isis hello padding
+
+router isis CORE
+  segment-routing mpls
+   router-id 192.168.255.90
+    no shutdown
+
+
+  traffic-engineering
+    no shutdown
+    is-type level-2
+
+router traffic-engineering
+ segment-routing
+ router-id ipv4 192.168.255.90
 ```

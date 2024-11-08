@@ -109,8 +109,8 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Channel Group | ISIS Instance | ISIS Metric | Mode | ISIS Circuit Type | Hello Padding | Authentication Mode |
 | --------- | ------------- | ------------- | ----------- | ---- | ----------------- | ------------- | ------------------- |
-| Ethernet1 | - | CORE | 50 | point-to-point | level-1 | True | - |
-| Ethernet5 | - | CORE | 50 | point-to-point | level-1 | True | - |
+| Ethernet1 | - | CORE | 50 | point-to-point | level-2 | False | - |
+| Ethernet5 | - | CORE | 50 | point-to-point | level-2 | False | - |
 
 #### Ethernet Interfaces Device Configuration
 
@@ -124,9 +124,9 @@ interface Ethernet1
    ip address 10.0.0.85/31
    mpls ip
    isis enable CORE
-   isis circuit-type level-1
+   isis circuit-type level-2
    isis metric 50
-   isis hello padding
+   no isis hello padding
    isis network point-to-point
 !
 interface Ethernet5
@@ -137,9 +137,9 @@ interface Ethernet5
    ip address 10.0.0.87/31
    mpls ip
    isis enable CORE
-   isis circuit-type level-1
+   isis circuit-type level-2
    isis metric 50
-   isis hello padding
+   no isis hello padding
    isis network point-to-point
 ```
 
