@@ -94,12 +94,11 @@ cvp_configlets:
     \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
     4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no
-    shutdown\n!\ninterface Ethernet1,2,4,5\n  no switchport\n  isis enable CORE\n
+    shutdown\n!\n\ninterface Ethernet1,2,4,5\n  no switchport\n  isis enable CORE\n
     \ traffic-engineering\n  isis network point-to-point\n  isis circuit-type level-2\n
     \ no isis hello padding\n\nrouter isis CORE\n  segment-routing mpls\n   router-id
     192.168.255.93\n   no shut\n\n  traffic-engineering\n    no shutdown\n    is-type
-    level-2\n\nrouter traffic-engineering\n segment-routing\n router-id ipv4 192.168.255.93
-    \n!\nend\n"
+    level-2\n\nrouter traffic-engineering\n segment-routing\n router-id ipv4 192.168.255.93\n!\nend\n"
   AVD-MPLS_P2: "!RANCID-CONTENT-TYPE: arista\n!\nvlan internal order ascending range
     1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice routing protocols
     model multi-agent\n!\nhostname P2\ndns domain atd.lab\n!\nspanning-tree mode none\n!\nno
@@ -121,7 +120,7 @@ cvp_configlets:
     \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
     4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
     api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no
-    shutdown\n!\n\ninterface Ethernet2,3,4\n   no switchport\n   isis enable CORE\n
+    shutdown\n!\n\n\ninterface Ethernet2,3,4\n   no switchport\n   isis enable CORE\n
     \  traffic-engineering\n   isis network point-to-point\n   isis circuit-type level-2\n
     \  no isis hello padding\n\n router isis CORE\n   segment-routing mpls\n     router-id
     192.168.255.94\n     no shutdown\n \n   traffic-engineering\n     no shutdown\n
