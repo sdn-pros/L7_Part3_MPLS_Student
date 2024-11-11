@@ -2,6 +2,9 @@ custom_hostname: BL1-DC2
 
 eos_cli: |-
 
+
+  no router bfd
+  
   interface Ethernet1,5
     no switchport
     isis enable CORE

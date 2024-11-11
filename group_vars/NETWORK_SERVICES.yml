@@ -5,4 +5,4 @@ tenants:
       - name: VRF_A
         vrf_id: 19
         address_families:
-          - vpn-ipv4
+          - evpn

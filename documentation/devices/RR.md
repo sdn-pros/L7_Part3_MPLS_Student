@@ -209,14 +209,14 @@ service routing protocols model multi-agent
 | VRF | Routing Enabled |
 | --- | --------------- |
 | default | True |
-| MGMT | False |
+| MGMT | True |
 
 #### IP Routing Device Configuration
 
 ```eos
 !
 ip routing
-no ip routing vrf MGMT
+ip routing vrf MGMT
 ```
 
 ### IPv6 Routing
@@ -308,13 +308,12 @@ router isis CORE
 
 | BGP Tuning |
 | ---------- |
-| neighbor MPLS-OVERLAY-PEERS next-hop-unchanged |
 | no bgp default ipv4-unicast |
 | maximum-paths 4 ecmp 4 |
 
 #### Router BGP Peer Groups
 
-##### MPLS-OVERLAY-PEERS
+##### EVPN_RRClient
 
 | Settings | Value |
 | -------- | ----- |
@@ -322,7 +321,6 @@ router isis CORE
 | Remote AS | 65300 |
 | Route Reflector Client | Yes |
 | Source | Loopback0 |
-| BFD | True |
 | Send community | all |
 | Maximum routes | 0 (no limit) |
 
@@ -341,8 +339,8 @@ router isis CORE
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 192.168.255.91 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
-| 192.168.255.95 | Inherited from peer group MPLS-OVERLAY-PEERS | default | - | Inherited from peer group MPLS-OVERLAY-PEERS | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - | Inherited from peer group MPLS-OVERLAY-PEERS | - |
+| 192.168.255.91 | Inherited from peer group EVPN_RRClient | default | - | Inherited from peer group EVPN_RRClient | Inherited from peer group EVPN_RRClient | - | - | - | Inherited from peer group EVPN_RRClient | - |
+| 192.168.255.95 | Inherited from peer group EVPN_RRClient | default | - | Inherited from peer group EVPN_RRClient | Inherited from peer group EVPN_RRClient | - | - | - | Inherited from peer group EVPN_RRClient | - |
 
 #### Router BGP EVPN Address Family
 
@@ -350,16 +348,14 @@ router isis CORE
 
 | Peer Group | Activate | Encapsulation |
 | ---------- | -------- | ------------- |
+| EVPN_RRClient | True | default |
 | RR-OVERLAY-PEERS | True | default |
 
-#### Router BGP VPN-IPv4 Address Family
+##### EVPN Neighbor Default Encapsulation
 
-##### VPN-IPv4 Peer Groups
-
-| Peer Group | Activate | Route-map In | Route-map Out |
-| ---------- | -------- | ------------ | ------------- |
-| MPLS-OVERLAY-PEERS | True | - | - |
-| RR-OVERLAY-PEERS | True | - | - |
+| Neighbor Default Encapsulation | Next-hop-self Source Interface |
+| ------------------------------ | ------------------------------ |
+| mpls | - |
 
 #### Router BGP Device Configuration
 
@@ -370,35 +366,31 @@ router bgp 65300
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
    bgp cluster-id 192.168.255.90
-   neighbor MPLS-OVERLAY-PEERS next-hop-unchanged
-   neighbor MPLS-OVERLAY-PEERS peer group
-   neighbor MPLS-OVERLAY-PEERS remote-as 65300
-   neighbor MPLS-OVERLAY-PEERS update-source Loopback0
-   neighbor MPLS-OVERLAY-PEERS route-reflector-client
-   neighbor MPLS-OVERLAY-PEERS bfd
-   neighbor MPLS-OVERLAY-PEERS send-community
-   neighbor MPLS-OVERLAY-PEERS maximum-routes 0
+   neighbor EVPN_RRClient peer group
+   neighbor EVPN_RRClient remote-as 65300
+   neighbor EVPN_RRClient update-source Loopback0
+   neighbor EVPN_RRClient route-reflector-client
+   neighbor EVPN_RRClient send-community
+   neighbor EVPN_RRClient maximum-routes 0
    neighbor RR-OVERLAY-PEERS peer group
    neighbor RR-OVERLAY-PEERS remote-as 65300
    neighbor RR-OVERLAY-PEERS update-source Loopback0
    neighbor RR-OVERLAY-PEERS bfd
    neighbor RR-OVERLAY-PEERS send-community
    neighbor RR-OVERLAY-PEERS maximum-routes 0
-   neighbor 192.168.255.91 peer group MPLS-OVERLAY-PEERS
+   neighbor 192.168.255.91 peer group EVPN_RRClient
    neighbor 192.168.255.91 description BL1-DC1
-   neighbor 192.168.255.95 peer group MPLS-OVERLAY-PEERS
+   neighbor 192.168.255.95 peer group EVPN_RRClient
    neighbor 192.168.255.95 description BL1-DC2
    !
    address-family evpn
+      neighbor default encapsulation mpls
+      neighbor EVPN_RRClient activate
       neighbor RR-OVERLAY-PEERS activate
    !
    address-family ipv4
-      no neighbor MPLS-OVERLAY-PEERS activate
+      no neighbor EVPN_RRClient activate
       no neighbor RR-OVERLAY-PEERS activate
-   !
-   address-family vpn-ipv4
-      neighbor MPLS-OVERLAY-PEERS activate
-      neighbor RR-OVERLAY-PEERS activate
 ```
 
 ## BFD
@@ -453,7 +445,7 @@ mpls ip
 
 | VRF Name | IP Routing |
 | -------- | ---------- |
-| MGMT | disabled |
+| MGMT | enabled |
 
 ### VRF Instances Device Configuration
 
@@ -466,6 +458,19 @@ vrf instance MGMT
 
 ```eos
 !
+
+no router bfd
+
+router bgp 65300
+  address-family evpn
+     neighbor EVPN_RRClient activate
+     neighbor EVPN_RRClient encapsulation mpls next-hop-self source-interface Loopback0
+
+     
+ address-family ipv4
+    no neighbor EVPN_RRClient activate
+    network 192.168.255.90/32
+
 
 interface Ethernet1,5
   no switchport

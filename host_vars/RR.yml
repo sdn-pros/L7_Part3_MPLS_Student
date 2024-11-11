@@ -2,6 +2,17 @@ custom_hostname: RR
 
 eos_cli: |-
 
+  router bgp 65300
+    address-family evpn
+       neighbor EVPN_RRClient activate
+       neighbor EVPN_RRClient encapsulation mpls next-hop-self source-interface Loopback0
+
+       
+   address-family ipv4
+      no neighbor EVPN_RRClient activate
+      network 192.168.255.90/32
+
+
   interface Ethernet1,5
     no switchport
     isis enable CORE

@@ -8,10 +8,16 @@ custom_structured_configuration_prefix: "custom_"
 
 bgp_as: 65300
 bgp_mesh_pes: false
+bgp_peer_groups:
+  mpls_overlay_peers:
+       name: EVPN_RRClient
+       bfd: false
+
+
+
 
 bfd:
   enable: false
-
 
 
 # RD/RT Format
@@ -32,14 +38,11 @@ isis_advertise_passive_only: false
 isis_instance: CORE
 isis_hello_padding: false
 
-
-
 design:
   type: mpls
 
 # There's an issue with vEOS with larger MTUs
 p2p_uplinks_mtu: 1500
-
 
 p:
   defaults: 
@@ -65,8 +68,10 @@ pe:
     loopback_ipv4_pool: 192.168.255.0/24
     virtual_router_mac_address: 02:1C:73:00:DC:00
     node_sid_base: 0
-    overlay_address_families: [ vpn-ipv4 ]
-    mpls_route_reflectors: [ RR ]
+    evpn_role: client
+    mpls_overlay_role: client
+    overlay_address_families: evpn
+    mpls_route_reflectors: [ 'RR' ]
     isis_system_id_prefix: '0000.0001'
     spanning_tree_mode: mstp
   
@@ -90,6 +95,7 @@ core_interfaces:
       ip_pool: core_pool
       isis_circuit_type: level-2
       isis_hello_padding: false
+
 
   p2p_links:
     - nodes: [ BL1-DC1, P1 ]
@@ -148,18 +154,18 @@ rr:
   defaults:
     platform: cEOS
     loopback_ipv4_pool: 192.168.255.0/24
-    isis_system_id_prefix: '0000.0001'
-    bgp_defaults:
-     - 'neighbor MPLS-OVERLAY-PEERS next-hop-unchanged'
+    mpls_overlay_role: server
+    overlay_address_families: [ 'evpn' ]
+    mpls_route_reflectors: [ 'RR' ]
+    isis_system_id_prefix: '0000.0001' 
 
   nodes:
     - name: RR
       id: 90
-
-
+      
 # Needed for Arista ATD Lab Environment
 dns_domain: atd.lab
 mgmt_interface: MGMT
 mgmt_interface_vrf: MGMT
 mgmt_gateway: 192.168.0.1
-ip_routing: enabled
+mgmt_vrf_routing: true
