@@ -7,7 +7,7 @@ all:
           ansible_httpapi_host: 192.168.0.5
           ansible_host: 192.168.0.5
           ansible_user: arista
-          ansible_password: aristaeqy7
+          ansible_password: <paste-switch-password>
           ansible_connection: httpapi
           ansible_httpapi_use_ssl: True
           ansible_httpapi_validate_certs: False
@@ -17,12 +17,7 @@ all:
       vars:
         ansible_user: arista
         ansible_ssh_pass: aristaeqy7 # If using SSH keys, this can be removed
-# Use this section if you want to perform testing via the eAPI
-        # ansible_connection: httpapi
-        # ansible_httpapi_use_ssl: True
-        # ansible_httpapi_validate_certs: False
-        # ansible_network_os: eos
-        # ansible_httpapi_port: 443
+
 # Use this section if you want to perform testing via the CLI through SSH
         ansible_connection: network_cli
         ansible_network_os: eos
@@ -31,39 +26,5 @@ all:
       children:
         WAN1:
           children:
-            P_ROUTERS:
-              vars:
-                type: p
-              hosts:
-                P1:
-                  ansible_host: 192.168.0.93
-                P2:
-                  ansible_host: 192.168.0.94
-                P3:
-                  ansible_host: 192.168.0.97
-                P4:
-                  ansible_host: 192.168.0.98
-
-            RR_ROUTERS:
-              vars: 
-                type: rr
-              hosts:
-                RR:
-                  ansible_host: 192.168.0.90
-   
-            PE_ROUTERS:
-              vars: 
-                type: pe
-
-              hosts:
-                BL1-DC1:
-                  ansible_host: 192.168.0.91
-
-                BL1-DC2:
-                  ansible_host: 192.168.0.95
-
-    NETWORK_SERVICES:
-      children:
-        PE_ROUTERS:
-
+     
    

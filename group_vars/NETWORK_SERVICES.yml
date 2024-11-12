@@ -2,7 +2,3 @@
 tenants:
   - name: TENANT_A
     vrfs: 
-      - name: VRF_A
-        vrf_id: 19
-        address_families:
-          - evpn

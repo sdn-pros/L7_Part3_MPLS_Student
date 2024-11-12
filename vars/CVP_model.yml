@@ -182,29 +182,3 @@ cvp_devices:
 
 
 
-
-  # - fqdn: P10
-  #   parentContainerName: Region1
-  #   configlets:
-  #       - 'AVD_P10'
-  # - fqdn: P20
-  #   parentContainerName: Region2
-  #   configlets:
-  #       - 'AVD_P20'
-  # - fqdn: Edge14
-  #   parentContainerName: Region1
-  #   configlets:
-  #       - 'AVD_Edge14'
-  # - fqdn: Edge24
-  #   parentContainerName: Region2
-  #   configlets:
-  #       - 'AVD_Edge24'
-  # - fqdn: ISP-3
-  #   parentContainerName: WAN
-  #   configlets:
-  #       - 'AVD_ISP-3'
-  # - fqdn: Edge20
-  #   parentContainerName: Region2
-  #   configlets:
-  #       - 'Underlay_Edge20'
-    
