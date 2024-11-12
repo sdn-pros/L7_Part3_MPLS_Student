@@ -1,14 +1,14 @@
 hostname: RR
 router_bgp:
   as: '65300'
-  router_id: 192.168.255.90
+  router_id: 3.3.0.90
   bgp:
     default:
       ipv4_unicast: false
   maximum_paths:
     paths: 4
     ecmp: 4
-  bgp_cluster_id: 192.168.255.90
+  bgp_cluster_id: 3.3.0.90
   peer_groups:
   - name: EVPN_RRClient
     type: mpls
@@ -40,10 +40,10 @@ router_bgp:
     - name: RR-OVERLAY-PEERS
       activate: true
   neighbors:
-  - ip_address: 192.168.255.91
+  - ip_address: 3.3.0.91
     peer_group: EVPN_RRClient
     description: BL1-DC1
-  - ip_address: 192.168.255.95
+  - ip_address: 3.3.0.95
     peer_group: EVPN_RRClient
     description: BL1-DC2
 static_routes:
@@ -70,7 +70,7 @@ loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
   shutdown: false
-  ip_address: 192.168.255.90/32
+  ip_address: 3.3.0.90/32
   isis_enable: CORE
   isis_passive: true
   node_segment:
@@ -79,7 +79,7 @@ router_isis:
   instance: CORE
   log_adjacency_changes: true
   net: 49.0001.0000.0001.0090.00
-  router_id: 192.168.255.90
+  router_id: 3.3.0.90
   is_type: level-2
   address_family_ipv4:
     enabled: true
@@ -87,7 +87,7 @@ router_isis:
   advertise:
     passive_only: false
   segment_routing_mpls:
-    router_id: 192.168.255.90
+    router_id: 3.3.0.90
     enabled: true
 mpls:
   ip: true

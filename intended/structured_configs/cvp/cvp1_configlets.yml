@@ -14,27 +14,27 @@ cvp_configlets:
     \  no switchport\n   ip address 10.0.0.84/31\n   mpls ip\n   isis enable CORE\n
     \  isis circuit-type level-2\n   isis metric 50\n   no isis hello padding\n   isis
     network point-to-point\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
-    \  no shutdown\n   ip address 192.168.255.91/32\n   isis enable CORE\n   isis
-    passive\n   node-segment ipv4 index 91\n!\nip virtual-router mac-address 02:1c:73:00:dc:00\n!\nip
+    \  no shutdown\n   ip address 3.3.0.91/32\n   isis enable CORE\n   isis passive\n
+    \  node-segment ipv4 index 91\n!\nip virtual-router mac-address 02:1c:73:00:dc:00\n!\nip
     routing\nip routing vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter
     bfd\n   multihop interval 300 min-rx 300 multiplier 3\n!\nrouter bgp 65300\n   router-id
-    192.168.255.91\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n   neighbor
+    3.3.0.91\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n   neighbor
     EVPN_RRClient peer group\n   neighbor EVPN_RRClient remote-as 65300\n   neighbor
     EVPN_RRClient update-source Loopback0\n   neighbor EVPN_RRClient send-community\n
-    \  neighbor EVPN_RRClient maximum-routes 0\n   neighbor 192.168.255.90 peer group
-    EVPN_RRClient\n   neighbor 192.168.255.90 description RR\n   !\n   address-family
-    evpn\n      neighbor default encapsulation mpls next-hop-self source-interface
-    Loopback0\n      neighbor EVPN_RRClient activate\n   !\n   address-family ipv4\n
-    \     no neighbor EVPN_RRClient activate\n!\nrouter isis CORE\n   net 49.0001.0000.0001.0091.00\n
-    \  is-type level-2\n   router-id ipv4 192.168.255.91\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
-    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
-    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\nno router bfd\n\ninterface
-    Ethernet1,5\n  no switchport\n  isis enable CORE\n  traffic-engineering\n  isis
-    network point-to-point\n  isis circuit-type level-2\n  no isis hello padding\n\nrouter
-    isis CORE\n  segment-routing mpls\n   router-id 192.168.255.90\n    no shutdown\n\n\n
-    \ traffic-engineering\n    no shutdown\n    is-type level-2\n\nrouter traffic-engineering\n
-    segment-routing\n router-id ipv4 192.168.255.90\n\n\n \n!\nend\n"
+    \  neighbor EVPN_RRClient maximum-routes 0\n   neighbor 3.3.0.90 peer group EVPN_RRClient\n
+    \  neighbor 3.3.0.90 description RR\n   !\n   address-family evpn\n      neighbor
+    default encapsulation mpls next-hop-self source-interface Loopback0\n      neighbor
+    EVPN_RRClient activate\n   !\n   address-family ipv4\n      no neighbor EVPN_RRClient
+    activate\n!\nrouter isis CORE\n   net 49.0001.0000.0001.0091.00\n   is-type level-2\n
+    \  router-id ipv4 3.3.0.91\n   log-adjacency-changes\n   !\n   address-family
+    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
+    \  vrf MGMT\n      no shutdown\n!\n\n\n\nno router bfd\n\ninterface Ethernet1,5\n
+    \ no switchport\n  isis enable CORE\n  traffic-engineering\n  isis network point-to-point\n
+    \ isis circuit-type level-2\n  no isis hello padding\n\nrouter isis CORE\n  segment-routing
+    mpls\n   router-id 3.3.0.91\n    no shutdown\n\n\n  traffic-engineering\n    no
+    shutdown\n    is-type level-2\n\nrouter traffic-engineering\n segment-routing\n
+    router-id ipv4 3.3.0.91\n\n\n \n!\nend\n"
   AVD-MPLS_BL1-DC2: "!RANCID-CONTENT-TYPE: arista\n!\nvlan internal order ascending
     range 1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice routing protocols
     model multi-agent\n!\nhostname BL1-DC2\ndns domain atd.lab\n!\nspanning-tree mode
@@ -50,27 +50,27 @@ cvp_configlets:
     \  no switchport\n   ip address 10.0.0.86/31\n   mpls ip\n   isis enable CORE\n
     \  isis circuit-type level-2\n   isis metric 50\n   no isis hello padding\n   isis
     network point-to-point\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
-    \  no shutdown\n   ip address 192.168.255.95/32\n   isis enable CORE\n   isis
-    passive\n   node-segment ipv4 index 95\n!\nip virtual-router mac-address 02:1c:73:00:dc:00\n!\nip
+    \  no shutdown\n   ip address 3.3.0.95/32\n   isis enable CORE\n   isis passive\n
+    \  node-segment ipv4 index 95\n!\nip virtual-router mac-address 02:1c:73:00:dc:00\n!\nip
     routing\nip routing vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter
     bfd\n   multihop interval 300 min-rx 300 multiplier 3\n!\nrouter bgp 65300\n   router-id
-    192.168.255.95\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n   neighbor
+    3.3.0.95\n   maximum-paths 4 ecmp 4\n   no bgp default ipv4-unicast\n   neighbor
     EVPN_RRClient peer group\n   neighbor EVPN_RRClient remote-as 65300\n   neighbor
     EVPN_RRClient update-source Loopback0\n   neighbor EVPN_RRClient send-community\n
-    \  neighbor EVPN_RRClient maximum-routes 0\n   neighbor 192.168.255.90 peer group
-    EVPN_RRClient\n   neighbor 192.168.255.90 description RR\n   !\n   address-family
-    evpn\n      neighbor default encapsulation mpls next-hop-self source-interface
-    Loopback0\n      neighbor EVPN_RRClient activate\n   !\n   address-family ipv4\n
-    \     no neighbor EVPN_RRClient activate\n!\nrouter isis CORE\n   net 49.0001.0000.0001.0095.00\n
-    \  is-type level-2\n   router-id ipv4 192.168.255.95\n   log-adjacency-changes\n
-    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
-    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
-    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\n\nno router
-    bfd\n\ninterface Ethernet1,5\n  no switchport\n  isis enable CORE\n  traffic-engineering\n
-    \ isis network point-to-point\n  isis circuit-type level-2\n  no isis hello padding\n\nrouter
-    isis CORE\n  segment-routing mpls\n   router-id 192.168.255.90\n    no shutdown\n\n\n
-    \ traffic-engineering\n    no shutdown\n    is-type level-2\n\nrouter traffic-engineering\n
-    segment-routing\n router-id ipv4 192.168.255.90\n!\nend\n"
+    \  neighbor EVPN_RRClient maximum-routes 0\n   neighbor 3.3.0.90 peer group EVPN_RRClient\n
+    \  neighbor 3.3.0.90 description RR\n   !\n   address-family evpn\n      neighbor
+    default encapsulation mpls next-hop-self source-interface Loopback0\n      neighbor
+    EVPN_RRClient activate\n   !\n   address-family ipv4\n      no neighbor EVPN_RRClient
+    activate\n!\nrouter isis CORE\n   net 49.0001.0000.0001.0095.00\n   is-type level-2\n
+    \  router-id ipv4 3.3.0.95\n   log-adjacency-changes\n   !\n   address-family
+    ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
+    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
+    \  vrf MGMT\n      no shutdown\n!\n\n\nno router bfd\n\ninterface Ethernet1,5\n
+    \ no switchport\n  isis enable CORE\n  traffic-engineering\n  isis network point-to-point\n
+    \ isis circuit-type level-2\n  no isis hello padding\n\nrouter isis CORE\n  segment-routing
+    mpls\n   router-id 3.3.0.90\n    no shutdown\n\n\n  traffic-engineering\n    no
+    shutdown\n    is-type level-2\n\nrouter traffic-engineering\n segment-routing\n
+    router-id ipv4 3.3.0.90\n!\nend\n"
   AVD-MPLS_P1: "!RANCID-CONTENT-TYPE: arista\n!\nvlan internal order ascending range
     1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice routing protocols
     model multi-agent\n!\nhostname P1\ndns domain atd.lab\n!\nspanning-tree mode none\n!\nno
@@ -85,18 +85,18 @@ cvp_configlets:
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.90/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   no
     isis hello padding\n   isis network point-to-point\n!\ninterface Loopback0\n   description
-    LSR_Router_ID\n   no shutdown\n   ip address 192.168.255.93/32\n   isis enable
-    CORE\n   isis passive\n   node-segment ipv4 index 93\n!\nip routing\nip routing
-    vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter isis CORE\n   net
-    49.0001.0000.0001.0093.00\n   is-type level-2\n   router-id ipv4 192.168.255.93\n
-    \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no
-    shutdown\n!\n\n\n\ninterface Ethernet1,2,4,5\n  no switchport\n  isis enable CORE\n
-    \ traffic-engineering\n  isis network point-to-point\n  isis circuit-type level-2\n
-    \ no isis hello padding\n\nrouter isis CORE\n  segment-routing mpls\n   router-id
-    192.168.255.93\n   no shut\n\n  traffic-engineering\n    no shutdown\n    is-type
-    level-2\n\nrouter traffic-engineering\n segment-routing\n router-id ipv4 192.168.255.93\n!\nend\n"
+    LSR_Router_ID\n   no shutdown\n   ip address 3.3.0.93/32\n   isis enable CORE\n
+    \  isis passive\n   node-segment ipv4 index 93\n!\nip routing\nip routing vrf
+    MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter isis CORE\n   net
+    49.0001.0000.0001.0093.00\n   is-type level-2\n   router-id ipv4 3.3.0.93\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\n\n\ninterface
+    Ethernet1,2,4,5\n  no switchport\n  isis enable CORE\n  traffic-engineering\n
+    \ isis network point-to-point\n  isis circuit-type level-2\n  no isis hello padding\n\nrouter
+    isis CORE\n  segment-routing mpls\n   router-id 3.3.0.93\n   no shut\n\n  traffic-engineering\n
+    \   no shutdown\n    is-type level-2\n\nrouter traffic-engineering\n segment-routing\n
+    router-id ipv4 3.3.0.93\n!\nend\n"
   AVD-MPLS_P2: "!RANCID-CONTENT-TYPE: arista\n!\nvlan internal order ascending range
     1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice routing protocols
     model multi-agent\n!\nhostname P2\ndns domain atd.lab\n!\nspanning-tree mode none\n!\nno
@@ -111,19 +111,19 @@ cvp_configlets:
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.91/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   no
     isis hello padding\n   isis network point-to-point\n!\ninterface Loopback0\n   description
-    LSR_Router_ID\n   no shutdown\n   ip address 192.168.255.94/32\n   isis enable
-    CORE\n   isis passive\n   node-segment ipv4 index 94\n!\nip routing\nip routing
-    vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter isis CORE\n   net
-    49.0001.0000.0001.0094.00\n   is-type level-2\n   router-id ipv4 192.168.255.94\n
-    \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no
-    shutdown\n!\n\n\n\ninterface Ethernet2,3,4\n   no switchport\n   isis enable CORE\n
-    \  traffic-engineering\n   isis network point-to-point\n   isis circuit-type level-2\n
-    \  no isis hello padding\n\n router isis CORE\n   segment-routing mpls\n     router-id
-    192.168.255.94\n     no shutdown\n \n   traffic-engineering\n     no shutdown\n
-    \    is-type level-2\n \n router traffic-engineering\n  segment-routing\n  router-id
-    ipv4 192.168.255.94\n \n!\nend\n"
+    LSR_Router_ID\n   no shutdown\n   ip address 3.3.0.94/32\n   isis enable CORE\n
+    \  isis passive\n   node-segment ipv4 index 94\n!\nip routing\nip routing vrf
+    MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter isis CORE\n   net
+    49.0001.0000.0001.0094.00\n   is-type level-2\n   router-id ipv4 3.3.0.94\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\n\n\ninterface
+    Ethernet2,3,4\n   no switchport\n   isis enable CORE\n   traffic-engineering\n
+    \  isis network point-to-point\n   isis circuit-type level-2\n   no isis hello
+    padding\n\n router isis CORE\n   segment-routing mpls\n     router-id 3.3.0.94\n
+    \    no shutdown\n \n   traffic-engineering\n     no shutdown\n     is-type level-2\n
+    \n router traffic-engineering\n  segment-routing\n  router-id ipv4 3.3.0.94\n
+    \n!\nend\n"
   AVD-MPLS_P3: "!RANCID-CONTENT-TYPE: arista\n!\nvlan internal order ascending range
     1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice routing protocols
     model multi-agent\n!\nhostname P3\ndns domain atd.lab\n!\nspanning-tree mode none\n!\nno
@@ -138,19 +138,18 @@ cvp_configlets:
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.92/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   no
     isis hello padding\n   isis network point-to-point\n!\ninterface Loopback0\n   description
-    LSR_Router_ID\n   no shutdown\n   ip address 192.168.255.97/32\n   isis enable
-    CORE\n   isis passive\n   node-segment ipv4 index 97\n!\nip routing\nip routing
-    vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter isis CORE\n   net
-    49.0001.0000.0001.0097.00\n   is-type level-2\n   router-id ipv4 192.168.255.97\n
-    \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no
-    shutdown\n!\n\n\ninterface Ethernet 1,2,3,4\n   no switchport\n   isis enable
-    CORE\n   traffic-engineering\n   isis network point-to-point\n   isis circuit-type
-    level-2\n   no isis hello padding\n\n router isis CORE\n   segment-routing mpls\n
-    \   router-id 192.168.255.97\n     no shutdown\n  \n \n   traffic-engineering\n
-    \    no shutdown\n     is-type level-2\n \n router traffic-engineering\n  segment-routing\n
-    \ router-id ipv4 192.168.255.97\n!\nend\n"
+    LSR_Router_ID\n   no shutdown\n   ip address 3.3.0.97/32\n   isis enable CORE\n
+    \  isis passive\n   node-segment ipv4 index 97\n!\nip routing\nip routing vrf
+    MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter isis CORE\n   net
+    49.0001.0000.0001.0097.00\n   is-type level-2\n   router-id ipv4 3.3.0.97\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\n\ninterface
+    Ethernet 1,2,3,4\n   no switchport\n   isis enable CORE\n   traffic-engineering\n
+    \  isis network point-to-point\n   isis circuit-type level-2\n   no isis hello
+    padding\n\n router isis CORE\n   segment-routing mpls\n    router-id 3.3.0.97\n
+    \    no shutdown\n  \n \n   traffic-engineering\n     no shutdown\n     is-type
+    level-2\n \n router traffic-engineering\n  segment-routing\n  router-id ipv4 3.3.0.97\n!\nend\n"
   AVD-MPLS_P4: "!RANCID-CONTENT-TYPE: arista\n!\nvlan internal order ascending range
     1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice routing protocols
     model multi-agent\n!\nhostname P4\ndns domain atd.lab\n!\nspanning-tree mode none\n!\nno
@@ -165,19 +164,18 @@ cvp_configlets:
     \  no shutdown\n   mtu 1500\n   no switchport\n   ip address 10.0.0.93/31\n   mpls
     ip\n   isis enable CORE\n   isis circuit-type level-2\n   isis metric 50\n   no
     isis hello padding\n   isis network point-to-point\n!\ninterface Loopback0\n   description
-    LSR_Router_ID\n   no shutdown\n   ip address 192.168.255.98/32\n   isis enable
-    CORE\n   isis passive\n   node-segment ipv4 index 98\n!\nip routing\nip routing
-    vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter isis CORE\n   net
-    49.0001.0000.0001.0098.00\n   is-type level-2\n   router-id ipv4 192.168.255.98\n
-    \  log-adjacency-changes\n   !\n   address-family ipv4 unicast\n      maximum-paths
-    4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement
-    api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no
-    shutdown\n!\n\n\ninterface Ethernet 2,3,4\n  no switchport\n  isis enable CORE\n
-    \ traffic-engineering\n  isis network point-to-point\n  isis circuit-type level-2\n
-    \ no isis hello padding\n\nrouter isis CORE\n  segment-routing mpls\n   router-id
-    192.168.255.98\n    no shutdown\n\n\n  traffic-engineering\n    no shutdown\n
-    \   is-type level-2\n\nrouter traffic-engineering\n segment-routing\n router-id
-    ipv4 192.168.255.98\n!\nend\n"
+    LSR_Router_ID\n   no shutdown\n   ip address 3.3.0.98/32\n   isis enable CORE\n
+    \  isis passive\n   node-segment ipv4 index 98\n!\nip routing\nip routing vrf
+    MGMT\n!\nip route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter isis CORE\n   net
+    49.0001.0000.0001.0098.00\n   is-type level-2\n   router-id ipv4 3.3.0.98\n   log-adjacency-changes\n
+    \  !\n   address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\n\ninterface
+    Ethernet 2,3,4\n  no switchport\n  isis enable CORE\n  traffic-engineering\n  isis
+    network point-to-point\n  isis circuit-type level-2\n  no isis hello padding\n\nrouter
+    isis CORE\n  segment-routing mpls\n   router-id 3.3.0.98\n    no shutdown\n\n\n
+    \ traffic-engineering\n    no shutdown\n    is-type level-2\n\nrouter traffic-engineering\n
+    segment-routing\n router-id ipv4 3.3.0.98\n!\nend\n"
   AVD-MPLS_RR: "!RANCID-CONTENT-TYPE: arista\n!\nvlan internal order ascending range
     1006 1199\n!\ntransceiver qsfp default-mode 4x10G\n!\nservice routing protocols
     model multi-agent\n!\nhostname RR\ndns domain atd.lab\n!\nspanning-tree mode none\n!\nno
@@ -189,36 +187,35 @@ cvp_configlets:
     1500\n   no switchport\n   ip address 10.0.0.87/31\n   mpls ip\n   isis enable
     CORE\n   isis circuit-type level-2\n   isis metric 50\n   no isis hello padding\n
     \  isis network point-to-point\n!\ninterface Loopback0\n   description MPLS_Overlay_peering\n
-    \  no shutdown\n   ip address 192.168.255.90/32\n   isis enable CORE\n   isis
-    passive\n   node-segment ipv4 index 90\n!\nip routing\nip routing vrf MGMT\n!\nip
-    route vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter bfd\n   multihop interval 300
-    min-rx 300 multiplier 3\n!\nrouter bgp 65300\n   router-id 192.168.255.90\n   maximum-paths
-    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp cluster-id 192.168.255.90\n   neighbor
+    \  no shutdown\n   ip address 3.3.0.90/32\n   isis enable CORE\n   isis passive\n
+    \  node-segment ipv4 index 90\n!\nip routing\nip routing vrf MGMT\n!\nip route
+    vrf MGMT 0.0.0.0/0 192.168.0.1\n!\nrouter bfd\n   multihop interval 300 min-rx
+    300 multiplier 3\n!\nrouter bgp 65300\n   router-id 3.3.0.90\n   maximum-paths
+    4 ecmp 4\n   no bgp default ipv4-unicast\n   bgp cluster-id 3.3.0.90\n   neighbor
     EVPN_RRClient peer group\n   neighbor EVPN_RRClient remote-as 65300\n   neighbor
     EVPN_RRClient update-source Loopback0\n   neighbor EVPN_RRClient route-reflector-client\n
     \  neighbor EVPN_RRClient send-community\n   neighbor EVPN_RRClient maximum-routes
     0\n   neighbor RR-OVERLAY-PEERS peer group\n   neighbor RR-OVERLAY-PEERS remote-as
     65300\n   neighbor RR-OVERLAY-PEERS update-source Loopback0\n   neighbor RR-OVERLAY-PEERS
     bfd\n   neighbor RR-OVERLAY-PEERS send-community\n   neighbor RR-OVERLAY-PEERS
-    maximum-routes 0\n   neighbor 192.168.255.91 peer group EVPN_RRClient\n   neighbor
-    192.168.255.91 description BL1-DC1\n   neighbor 192.168.255.95 peer group EVPN_RRClient\n
-    \  neighbor 192.168.255.95 description BL1-DC2\n   !\n   address-family evpn\n
-    \     neighbor default encapsulation mpls\n      neighbor EVPN_RRClient activate\n
-    \     neighbor RR-OVERLAY-PEERS activate\n   !\n   address-family ipv4\n      no
-    neighbor EVPN_RRClient activate\n      no neighbor RR-OVERLAY-PEERS activate\n!\nrouter
-    isis CORE\n   net 49.0001.0000.0001.0090.00\n   is-type level-2\n   router-id
-    ipv4 192.168.255.90\n   log-adjacency-changes\n   !\n   address-family ipv4 unicast\n
-    \     maximum-paths 4\n   !\n   segment-routing mpls\n      no shutdown\n!\nmpls
-    ip\n!\nmanagement api http-commands\n   protocol https\n   no shutdown\n   !\n
-    \  vrf MGMT\n      no shutdown\n!\n\nno router bfd\n\nrouter bgp 65300\n  address-family
-    evpn\n     neighbor EVPN_RRClient activate\n     neighbor EVPN_RRClient encapsulation
-    mpls next-hop-self source-interface Loopback0\n\n     \n address-family ipv4\n
-    \   no neighbor EVPN_RRClient activate\n    network 192.168.255.90/32\n\n\ninterface
+    maximum-routes 0\n   neighbor 3.3.0.91 peer group EVPN_RRClient\n   neighbor 3.3.0.91
+    description BL1-DC1\n   neighbor 3.3.0.95 peer group EVPN_RRClient\n   neighbor
+    3.3.0.95 description BL1-DC2\n   !\n   address-family evpn\n      neighbor default
+    encapsulation mpls\n      neighbor EVPN_RRClient activate\n      neighbor RR-OVERLAY-PEERS
+    activate\n   !\n   address-family ipv4\n      no neighbor EVPN_RRClient activate\n
+    \     no neighbor RR-OVERLAY-PEERS activate\n!\nrouter isis CORE\n   net 49.0001.0000.0001.0090.00\n
+    \  is-type level-2\n   router-id ipv4 3.3.0.90\n   log-adjacency-changes\n   !\n
+    \  address-family ipv4 unicast\n      maximum-paths 4\n   !\n   segment-routing
+    mpls\n      no shutdown\n!\nmpls ip\n!\nmanagement api http-commands\n   protocol
+    https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\nrouter bgp 65300\n
+    \ address-family evpn\n     neighbor EVPN_RRClient activate\n     neighbor EVPN_RRClient
+    encapsulation mpls next-hop-self source-interface Loopback0\n\n     \n address-family
+    ipv4\n    no neighbor EVPN_RRClient activate\n    network 13.3.0.90/32\n\n\ninterface
     Ethernet1,5\n  no switchport\n  isis enable CORE\n  traffic-engineering\n  isis
     network point-to-point\n  isis circuit-type level-2\n  no isis hello padding\n\nrouter
-    isis CORE\n  segment-routing mpls\n   router-id 192.168.255.90\n    no shutdown\n\n\n
+    isis CORE\n  segment-routing mpls\n   router-id 3.3.0.90\n    no shutdown\n\n\n
     \ traffic-engineering\n    no shutdown\n    is-type level-2\n\nrouter traffic-engineering\n
-    segment-routing\n router-id ipv4 192.168.255.90\n!\nend\n"
+    segment-routing\n router-id ipv4 3.3.0.90\n!\nend\n"
 cvp_topology:
   MPLS_FABRIC:
     devices: []

@@ -23,7 +23,7 @@ loopback_interfaces:
 - name: Loopback0
   description: LSR_Router_ID
   shutdown: false
-  ip_address: 192.168.255.97/32
+  ip_address: 3.3.0.97/32
   isis_enable: CORE
   isis_passive: true
   node_segment:
@@ -32,7 +32,7 @@ router_isis:
   instance: CORE
   log_adjacency_changes: true
   net: 49.0001.0000.0001.0097.00
-  router_id: 192.168.255.97
+  router_id: 3.3.0.97
   is_type: level-2
   address_family_ipv4:
     enabled: true
@@ -40,7 +40,7 @@ router_isis:
   advertise:
     passive_only: false
   segment_routing_mpls:
-    router_id: 192.168.255.97
+    router_id: 3.3.0.97
     enabled: true
 mpls:
   ip: true

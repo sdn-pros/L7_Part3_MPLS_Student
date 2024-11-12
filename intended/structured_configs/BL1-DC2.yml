@@ -1,7 +1,7 @@
 hostname: BL1-DC2
 router_bgp:
   as: '65300'
-  router_id: 192.168.255.95
+  router_id: 3.3.0.95
   bgp:
     default:
       ipv4_unicast: false
@@ -28,7 +28,7 @@ router_bgp:
     - name: EVPN_RRClient
       activate: true
   neighbors:
-  - ip_address: 192.168.255.90
+  - ip_address: 3.3.0.90
     peer_group: EVPN_RRClient
     description: RR
 static_routes:
@@ -58,7 +58,7 @@ loopback_interfaces:
 - name: Loopback0
   description: MPLS_Overlay_peering
   shutdown: false
-  ip_address: 192.168.255.95/32
+  ip_address: 3.3.0.95/32
   isis_enable: CORE
   isis_passive: true
   node_segment:
@@ -67,7 +67,7 @@ router_isis:
   instance: CORE
   log_adjacency_changes: true
   net: 49.0001.0000.0001.0095.00
-  router_id: 192.168.255.95
+  router_id: 3.3.0.95
   is_type: level-2
   address_family_ipv4:
     enabled: true
@@ -75,7 +75,7 @@ router_isis:
   advertise:
     passive_only: false
   segment_routing_mpls:
-    router_id: 192.168.255.95
+    router_id: 3.3.0.95
     enabled: true
 mpls:
   ip: true
@@ -137,6 +137,5 @@ ip_igmp_snooping:
   globally_enabled: true
 ip_virtual_router_mac_address: 02:1c:73:00:dc:00
 eos_cli: "\n\nno router bfd\n\ninterface Ethernet1,5\n  no switchport\n  isis enable CORE\n  traffic-engineering\n  isis network point-to-point\n
-  \ isis circuit-type level-2\n  no isis hello padding\n\nrouter isis CORE\n  segment-routing mpls\n   router-id 192.168.255.90\n    no
-  shutdown\n\n\n  traffic-engineering\n    no shutdown\n    is-type level-2\n\nrouter traffic-engineering\n segment-routing\n router-id
-  ipv4 192.168.255.90"
+  \ isis circuit-type level-2\n  no isis hello padding\n\nrouter isis CORE\n  segment-routing mpls\n   router-id 3.3.0.90\n    no shutdown\n\n\n
+  \ traffic-engineering\n    no shutdown\n    is-type level-2\n\nrouter traffic-engineering\n segment-routing\n router-id ipv4 3.3.0.90"

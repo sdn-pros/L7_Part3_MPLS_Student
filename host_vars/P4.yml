@@ -13,7 +13,7 @@ eos_cli: |-
 
   router isis CORE
     segment-routing mpls
-     router-id 192.168.255.98
+     router-id 3.3.0.98
       no shutdown
   
   
@@ -23,4 +23,4 @@ eos_cli: |-
   
   router traffic-engineering
    segment-routing
-   router-id ipv4 192.168.255.98
+   router-id ipv4 3.3.0.98

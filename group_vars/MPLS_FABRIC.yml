@@ -13,9 +13,6 @@ bgp_peer_groups:
        name: EVPN_RRClient
        bfd: false
 
-
-
-
 bfd:
   enable: false
 
@@ -47,7 +44,7 @@ p2p_uplinks_mtu: 1500
 p:
   defaults: 
     platform: cEOS
-    loopback_ipv4_pool: 192.168.255.0/24
+    loopback_ipv4_pool: 3.3.0.0/24
 
     node_sid_base: 0
     isis_system_id_prefix: '0000.0001'
@@ -65,7 +62,7 @@ p:
 pe:
   defaults:
     platform: cEOS
-    loopback_ipv4_pool: 192.168.255.0/24
+    loopback_ipv4_pool: 3.3.0.0/24
     virtual_router_mac_address: 02:1C:73:00:DC:00
     node_sid_base: 0
     evpn_role: client
@@ -153,7 +150,7 @@ core_interfaces:
 rr:
   defaults:
     platform: cEOS
-    loopback_ipv4_pool: 192.168.255.0/24
+    loopback_ipv4_pool: 3.3.0.0/24
     mpls_overlay_role: server
     overlay_address_families: [ 'evpn' ]
     mpls_route_reflectors: [ 'RR' ]

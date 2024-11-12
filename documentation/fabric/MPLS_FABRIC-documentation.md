@@ -74,19 +74,19 @@
 
 | Loopback Pool | Available Addresses | Assigned addresses | Assigned Address % |
 | ------------- | ------------------- | ------------------ | ------------------ |
-| 192.168.255.0/24 | 256 | 7 | 2.74 % |
+| 3.3.0.0/24 | 256 | 7 | 2.74 % |
 
 ### Loopback0 Interfaces Node Allocation
 
 | POD | Node | Loopback0 |
 | --- | ---- | --------- |
-| MPLS_FABRIC | BL1-DC1 | 192.168.255.91/32 |
-| MPLS_FABRIC | BL1-DC2 | 192.168.255.95/32 |
-| MPLS_FABRIC | P1 | 192.168.255.93/32 |
-| MPLS_FABRIC | P2 | 192.168.255.94/32 |
-| MPLS_FABRIC | P3 | 192.168.255.97/32 |
-| MPLS_FABRIC | P4 | 192.168.255.98/32 |
-| MPLS_FABRIC | RR | 192.168.255.90/32 |
+| MPLS_FABRIC | BL1-DC1 | 3.3.0.91/32 |
+| MPLS_FABRIC | BL1-DC2 | 3.3.0.95/32 |
+| MPLS_FABRIC | P1 | 3.3.0.93/32 |
+| MPLS_FABRIC | P2 | 3.3.0.94/32 |
+| MPLS_FABRIC | P3 | 3.3.0.97/32 |
+| MPLS_FABRIC | P4 | 3.3.0.98/32 |
+| MPLS_FABRIC | RR | 3.3.0.90/32 |
 
 ### ISIS CLNS interfaces
 

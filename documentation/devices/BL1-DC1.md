@@ -189,7 +189,7 @@ interface Ethernet5
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | MPLS_Overlay_peering | default | 192.168.255.91/32 |
+| Loopback0 | MPLS_Overlay_peering | default | 3.3.0.91/32 |
 
 ##### IPv6
 
@@ -210,7 +210,7 @@ interface Ethernet5
 interface Loopback0
    description MPLS_Overlay_peering
    no shutdown
-   ip address 192.168.255.91/32
+   ip address 3.3.0.91/32
    isis enable CORE
    isis passive
    node-segment ipv4 index 91
@@ -290,7 +290,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 | Instance | CORE |
 | Net-ID | 49.0001.0000.0001.0091.00 |
 | Type | level-2 |
-| Router-ID | 192.168.255.91 |
+| Router-ID | 3.3.0.91 |
 | Log Adjacency Changes | True |
 | SR MPLS Enabled | True |
 
@@ -323,7 +323,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 router isis CORE
    net 49.0001.0000.0001.0091.00
    is-type level-2
-   router-id ipv4 192.168.255.91
+   router-id ipv4 3.3.0.91
    log-adjacency-changes
    !
    address-family ipv4 unicast
@@ -339,7 +339,7 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65300|  192.168.255.91 |
+| 65300|  3.3.0.91 |
 
 | BGP Tuning |
 | ---------- |
@@ -362,7 +362,7 @@ router isis CORE
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 192.168.255.90 | Inherited from peer group EVPN_RRClient | default | - | Inherited from peer group EVPN_RRClient | Inherited from peer group EVPN_RRClient | - | - | - | - | - |
+| 3.3.0.90 | Inherited from peer group EVPN_RRClient | default | - | Inherited from peer group EVPN_RRClient | Inherited from peer group EVPN_RRClient | - | - | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -383,7 +383,7 @@ router isis CORE
 ```eos
 !
 router bgp 65300
-   router-id 192.168.255.91
+   router-id 3.3.0.91
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
    neighbor EVPN_RRClient peer group
@@ -391,8 +391,8 @@ router bgp 65300
    neighbor EVPN_RRClient update-source Loopback0
    neighbor EVPN_RRClient send-community
    neighbor EVPN_RRClient maximum-routes 0
-   neighbor 192.168.255.90 peer group EVPN_RRClient
-   neighbor 192.168.255.90 description RR
+   neighbor 3.3.0.90 peer group EVPN_RRClient
+   neighbor 3.3.0.90 description RR
    !
    address-family evpn
       neighbor default encapsulation mpls next-hop-self source-interface Loopback0
@@ -484,6 +484,8 @@ vrf instance MGMT
 ```eos
 !
 
+
+
 no router bfd
 
 interface Ethernet1,5
@@ -496,7 +498,7 @@ interface Ethernet1,5
 
 router isis CORE
   segment-routing mpls
-   router-id 192.168.255.90
+   router-id 3.3.0.91
     no shutdown
 
 
@@ -506,7 +508,7 @@ router isis CORE
 
 router traffic-engineering
  segment-routing
- router-id ipv4 192.168.255.90
+ router-id ipv4 3.3.0.91
 
 
  

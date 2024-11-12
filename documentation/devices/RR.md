@@ -164,7 +164,7 @@ interface Ethernet5
 
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
-| Loopback0 | MPLS_Overlay_peering | default | 192.168.255.90/32 |
+| Loopback0 | MPLS_Overlay_peering | default | 3.3.0.90/32 |
 
 ##### IPv6
 
@@ -185,7 +185,7 @@ interface Ethernet5
 interface Loopback0
    description MPLS_Overlay_peering
    no shutdown
-   ip address 192.168.255.90/32
+   ip address 3.3.0.90/32
    isis enable CORE
    isis passive
    node-segment ipv4 index 90
@@ -252,7 +252,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 | Instance | CORE |
 | Net-ID | 49.0001.0000.0001.0090.00 |
 | Type | level-2 |
-| Router-ID | 192.168.255.90 |
+| Router-ID | 3.3.0.90 |
 | Log Adjacency Changes | True |
 | SR MPLS Enabled | True |
 
@@ -284,7 +284,7 @@ ip route vrf MGMT 0.0.0.0/0 192.168.0.1
 router isis CORE
    net 49.0001.0000.0001.0090.00
    is-type level-2
-   router-id ipv4 192.168.255.90
+   router-id ipv4 3.3.0.90
    log-adjacency-changes
    !
    address-family ipv4 unicast
@@ -300,11 +300,11 @@ router isis CORE
 
 | BGP AS | Router ID |
 | ------ | --------- |
-| 65300|  192.168.255.90 |
+| 65300|  3.3.0.90 |
 
 | BGP AS | Cluster ID |
 | ------ | --------- |
-| 65300|  192.168.255.90 |
+| 65300|  3.3.0.90 |
 
 | BGP Tuning |
 | ---------- |
@@ -339,8 +339,8 @@ router isis CORE
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ---------- | --- | --------------------- | ---------------------- | ------- |
-| 192.168.255.91 | Inherited from peer group EVPN_RRClient | default | - | Inherited from peer group EVPN_RRClient | Inherited from peer group EVPN_RRClient | - | - | - | Inherited from peer group EVPN_RRClient | - |
-| 192.168.255.95 | Inherited from peer group EVPN_RRClient | default | - | Inherited from peer group EVPN_RRClient | Inherited from peer group EVPN_RRClient | - | - | - | Inherited from peer group EVPN_RRClient | - |
+| 3.3.0.91 | Inherited from peer group EVPN_RRClient | default | - | Inherited from peer group EVPN_RRClient | Inherited from peer group EVPN_RRClient | - | - | - | Inherited from peer group EVPN_RRClient | - |
+| 3.3.0.95 | Inherited from peer group EVPN_RRClient | default | - | Inherited from peer group EVPN_RRClient | Inherited from peer group EVPN_RRClient | - | - | - | Inherited from peer group EVPN_RRClient | - |
 
 #### Router BGP EVPN Address Family
 
@@ -362,10 +362,10 @@ router isis CORE
 ```eos
 !
 router bgp 65300
-   router-id 192.168.255.90
+   router-id 3.3.0.90
    maximum-paths 4 ecmp 4
    no bgp default ipv4-unicast
-   bgp cluster-id 192.168.255.90
+   bgp cluster-id 3.3.0.90
    neighbor EVPN_RRClient peer group
    neighbor EVPN_RRClient remote-as 65300
    neighbor EVPN_RRClient update-source Loopback0
@@ -378,10 +378,10 @@ router bgp 65300
    neighbor RR-OVERLAY-PEERS bfd
    neighbor RR-OVERLAY-PEERS send-community
    neighbor RR-OVERLAY-PEERS maximum-routes 0
-   neighbor 192.168.255.91 peer group EVPN_RRClient
-   neighbor 192.168.255.91 description BL1-DC1
-   neighbor 192.168.255.95 peer group EVPN_RRClient
-   neighbor 192.168.255.95 description BL1-DC2
+   neighbor 3.3.0.91 peer group EVPN_RRClient
+   neighbor 3.3.0.91 description BL1-DC1
+   neighbor 3.3.0.95 peer group EVPN_RRClient
+   neighbor 3.3.0.95 description BL1-DC2
    !
    address-family evpn
       neighbor default encapsulation mpls
@@ -459,8 +459,6 @@ vrf instance MGMT
 ```eos
 !
 
-no router bfd
-
 router bgp 65300
   address-family evpn
      neighbor EVPN_RRClient activate
@@ -469,7 +467,7 @@ router bgp 65300
      
  address-family ipv4
     no neighbor EVPN_RRClient activate
-    network 192.168.255.90/32
+    network 13.3.0.90/32
 
 
 interface Ethernet1,5
@@ -482,7 +480,7 @@ interface Ethernet1,5
 
 router isis CORE
   segment-routing mpls
-   router-id 192.168.255.90
+   router-id 3.3.0.90
     no shutdown
 
 
@@ -492,5 +490,5 @@ router isis CORE
 
 router traffic-engineering
  segment-routing
- router-id ipv4 192.168.255.90
+ router-id ipv4 3.3.0.90
 ```

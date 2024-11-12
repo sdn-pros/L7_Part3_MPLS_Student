@@ -1,11 +1,4 @@
 cvp_configlets:
-  
-  # Underlay_P10: "{{ lookup('file', '../intended/configs/P10.cfg') }}"
-  # Underlay_P20: "{{ lookup('file', '../intended/configs/P20.cfg') }}"
-  # Underlay_ISP-3: "{{ lookup('file', '../intended/configs/ISP-3.cfg') }}"
-  # Underlay_Edge14: "{{ lookup('file', '../intended/configs/Edge14.cfg') }}"
-  # Underlay_Edge24: "{{ lookup('file', '../intended/configs/Edge24.cfg') }}"
-  # Underlay_RR4: "{{ lookup('file', '../intended/configs/RR4.cfg') }}"
 
   Underlay_Edge10: "{{ lookup('file', '../intended/configs/Edge10.cfg') }}"
   Underlay_Edge11: "{{ lookup('file', '../intended/configs/Edge11.cfg') }}"

@@ -2,7 +2,7 @@ custom_hostname: P1
 
 eos_cli: |-
   
-
+  
 
   interface Ethernet1,2,4,5
     no switchport
@@ -14,7 +14,7 @@ eos_cli: |-
 
   router isis CORE
     segment-routing mpls
-     router-id 192.168.255.93
+     router-id 3.3.0.93
      no shut
 
     traffic-engineering
@@ -23,4 +23,4 @@ eos_cli: |-
   
   router traffic-engineering
    segment-routing
-   router-id ipv4 192.168.255.93
+   router-id ipv4 3.3.0.93
